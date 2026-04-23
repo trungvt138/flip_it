@@ -1,39 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { Image } from 'react-native'
+import { Image } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import NavBar from './Navbar';
 
 export default function Homepage() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-
-        <TextInput style={styles.searchBox} placeholder="Search..." />
-        <View style={styles.horizontalRuler} />
-        {/* <Text style={styles.text}>Welcome to FlipIt!</Text> */}
-        {/* <StatusBar style="auto" /> */}
-        <View style={styles.plusCircleIcon}>
-          <Image source={require("./assets/plus-circle.png")} />
-          <Text style={styles.iconInstructText}>
-            Tap to create your first card set
-          </Text>
+        <View style={styles.content}>
+          <TextInput style={styles.searchBox} placeholder="Search..." />
+          <View style={styles.horizontalRuler} />
+          {/* <Text style={styles.text}>Welcome to FlipIt!</Text> */}
+          {/* <StatusBar style="auto" /> */}
+          <View style={styles.plusCircleIcon}>
+            <TouchableOpacity>
+              <Image source={require("../assets/plus-circle.png")} />
+            </TouchableOpacity>
+            <Text>
+              Tap to create your first card set
+            </Text>
+          </View>
         </View>
-
-        <View style={styles.navBar}>
-          <TouchableOpacity>
-            <Image source={require("./assets/home-navbar.png")} />
-            <Text>Home</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image source={require("./assets/home-navbar.png")} />
-            <Text>Create</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image source={require("./assets/home-navbar.png")} />
-            <Text>Library</Text>
-          </TouchableOpacity>
-        </View>
-
+        
+        <NavBar />
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -43,9 +33,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'flex-start',
     paddingTop: 8,
     alignItems: 'center'
+  },
+  content: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
   },
   searchBox: {
     alignSelf: 'stretch',
@@ -74,6 +68,19 @@ const styles = StyleSheet.create({
     width: 360,
     height: 75,
     backgroundColor: '#D9D9D9',
-    top: 250
+  },
+  iconWrapper: {
+    padding: 3,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#9080F7',
+    justifyContent: 'center',
+    borderRadius: 5
+  },
+  navItem: {
+    alignItems: 'center',
+  },
+  iconText: {
+    color: '#9080F7'
   }
 });
