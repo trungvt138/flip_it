@@ -4,13 +4,14 @@ import { Image } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import NavBar from '../components/Navbar';
 import HorizontalRuler from '../components/HorizontalRuler';
+import TextBox from '../components/TextBox';
 
 export default function Homepage() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
-          <TextInput style={styles.searchBox} placeholder="Search..." />
+          <TextBox placeholder="Search..." />
           <HorizontalRuler />
           {/* <Text style={styles.text}>Welcome to FlipIt!</Text> */}
           {/* <StatusBar style="auto" /> */}
@@ -42,17 +43,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
-  searchBox: {
-    alignSelf: 'stretch',
-    height: 36,
-    backgroundColor: '#D9D9D9',
-    marginHorizontal: 30,
-    borderRadius: 8,
-    paddingLeft: 13,
-    paddingTop: 10,
-    textAlignVertical: 'center',
-  },
-  
   plusCircleIcon: {
     paddingTop: 212,
     alignItems: 'center'
