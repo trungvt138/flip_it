@@ -6,16 +6,16 @@ export default function Navbar() {
         <View style={styles.navBar}>
             <TouchableOpacity style={styles.navItem}>
                 <View style={styles.iconWrapper}>
-                    <Image source={require("../assets/home-navbar.png")} />
+                    <Image source={require("../../assets/home-navbar.png")} />
                 </View>
                 <Text style={styles.iconText}>Home</Text>
             </TouchableOpacity>
             <TouchableOpacity>
-                <Image source={require("../assets/home-navbar.png")} />
+                <Image source={require("../../assets/home-navbar.png")} />
                 <Text>Create</Text>
             </TouchableOpacity>
             <TouchableOpacity>
-                <Image source={require("../assets/home-navbar.png")} />
+                <Image source={require("../../assets/home-navbar.png")} />
                 <Text>Library</Text>
             </TouchableOpacity>
         </View>

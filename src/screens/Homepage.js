@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { Image } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import NavBar from './Navbar';
+import NavBar from '../components/Navbar';
 
 export default function Homepage() {
   return (
@@ -15,7 +15,7 @@ export default function Homepage() {
           {/* <StatusBar style="auto" /> */}
           <View style={styles.plusCircleIcon}>
             <TouchableOpacity>
-              <Image source={require("../assets/plus-circle.png")} />
+              <Image source={require("../../assets/plus-circle.png")} />
             </TouchableOpacity>
             <Text>
               Tap to create your first card set
