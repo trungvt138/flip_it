@@ -1,23 +1,19 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { Image } from 'react-native';
+import NavItem from './NavItem';
+
+const NAV_ITEMS = [
+    {id: 'home', label: 'Home', icon: require("../../assets/home-navbar.png")},
+    {id: 'create', label: 'Create', icon: require("../../assets/create-navbar.png")},
+    {id: 'library', label: 'Library', icon: require("../../assets/library-navbar.png")},
+]
 
 export default function Navbar() {
     return (
         <View style={styles.navBar}>
-            <TouchableOpacity style={styles.navItem}>
-                <View style={styles.iconWrapper}>
-                    <Image source={require("../../assets/home-navbar.png")} />
-                </View>
-                <Text style={styles.iconText}>Home</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Image source={require("../../assets/home-navbar.png")} />
-                <Text>Create</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Image source={require("../../assets/home-navbar.png")} />
-                <Text>Library</Text>
-            </TouchableOpacity>
+            {NAV_ITEMS.map(item => (
+                <NavItem key={item.id} label={item.label} icon={item.icon}/>
+            ))}
         </View>
     )
 }
@@ -31,18 +27,4 @@ const styles = StyleSheet.create({
         height: 75,
         backgroundColor: '#D9D9D9',
     },
-    iconWrapper: {
-        padding: 3,
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: '#9080F7',
-        justifyContent: 'center',
-        borderRadius: 5
-    },
-    navItem: {
-        alignItems: 'center',
-    },
-    iconText: {
-        color: '#9080F7'
-    }
 })
