@@ -57,26 +57,4 @@ const styles = StyleSheet.create({
     paddingTop: 212,
     alignItems: 'center'
   },
-  navBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    width: 360,
-    height: 75,
-    backgroundColor: '#D9D9D9',
-  },
-  iconWrapper: {
-    padding: 3,
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#9080F7',
-    justifyContent: 'center',
-    borderRadius: 5
-  },
-  navItem: {
-    alignItems: 'center',
-  },
-  iconText: {
-    color: '#9080F7'
-  }
 });
