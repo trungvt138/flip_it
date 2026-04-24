@@ -4,7 +4,8 @@ import { Image } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Navbar from '../components/Navbar';
 import HorizontalRuler from '../components/HorizontalRuler';
-import TextBox from '../components/TextBox';
+import LabeledInput from '../components/LabeledInput';
+import Card from '../components/Card';
 
 export default function CreateSet() {
   return (
@@ -23,10 +24,10 @@ export default function CreateSet() {
           <HorizontalRuler />
 
           <View style={styles.body}>
-            <Text>Set Name:</Text>
-            <TextBox />
+            <LabeledInput label={"Set Name:"}/>
+            
             <ScrollView>
-
+              <Card />
             </ScrollView>
           </View>
         </View>

@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     height: 36,
     backgroundColor: '#D9D9D9',
-    marginHorizontal: 30,
     borderRadius: 8,
     paddingLeft: 13,
     paddingTop: 10,
