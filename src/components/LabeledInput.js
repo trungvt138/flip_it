@@ -3,8 +3,11 @@ import { View, Text, StyleSheet } from 'react-native';
 
 export default function LabeledInput(props) {
     return (
-        <View style={styles.labeledInput}>
-            <Text>{props.label}</Text>
+        <View style={[styles.labeledInput, props.style]}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                <Text>{props.label}</Text>
+                {props.rightElement}
+            </View>
             <TextBox />
         </View>
     )
@@ -12,6 +15,6 @@ export default function LabeledInput(props) {
 
 const styles = StyleSheet.create({
     labeledInput: {
-        paddingHorizontal: 30
+        
     }
 })

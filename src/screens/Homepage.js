@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   plusCircleIcon: {
-    paddingTop: 212,
+    marginTop: 212,
     alignItems: 'center'
   },
 });
