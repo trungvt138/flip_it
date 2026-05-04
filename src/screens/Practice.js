@@ -11,8 +11,8 @@ export default function Practice() {
             <TouchableOpacity style={styles.closeButton}>
               <Image source={require("../../assets/X.png")} />
             </TouchableOpacity>
-            <ProgressBar />
         </View>
+        <ProgressBar />
       </SafeAreaView>
     </SafeAreaProvider>
   );

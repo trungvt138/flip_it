@@ -2,9 +2,11 @@ import { StyleSheet, Text, View } from "react-native";
 
 export default function ProgressBar() {
     return (
-        <View style={styles.progressBar}>
-            <View style={{flex: 3, backgroundColor: '#9080F7', alignSelf: 'stretch'}}></View>
-            <View style={{flex: 7, backgroundColor: '#D9D9D9', alignSelf: 'stretch'}}></View>
+        <View style={{flex: 1}}>
+            <View style={styles.progressBar}>
+                <View style={{ flex: 3, backgroundColor: '#9080F7'}}></View>
+                <View style={{ flex: 7, backgroundColor: '#D9D9D9'}}></View>
+            </View>
             <Text>3/10</Text>
         </View>
     )
@@ -12,6 +14,8 @@ export default function ProgressBar() {
 
 const styles = StyleSheet.create({
     progressBar: {
-        flexDirection: 'row'
+        height: 10,
+        flexDirection: 'row',
+        
     }
 })

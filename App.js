@@ -3,10 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import Homepage from './src/screens/Homepage';
 import CreateSet from './src/screens/CreateSet';
 import Practice from './src/screens/Practice';
+import Library from './src/screens/Library';
 
 export default function App() {
   return (
-    <Homepage />
+    <Practice />
   )
 }
 
