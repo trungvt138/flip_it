@@ -6,8 +6,8 @@ import Practice from './src/screens/Practice';
 
 export default function App() {
   return (
-    <Practice />
-  );
+    <Homepage />
+  )
 }
 
 const styles = StyleSheet.create({

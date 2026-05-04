@@ -11,10 +11,8 @@ export default function Homepage() {
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
-          <TextBox placeholder="Search..." />
+          <TextBox style={styles.textBox} placeholder="Search..." />
           <HorizontalRuler />
-          {/* <Text style={styles.text}>Welcome to FlipIt!</Text> */}
-          {/* <StatusBar style="auto" /> */}
           <View style={styles.plusCircleIcon}>
             <TouchableOpacity>
               <Image source={require("../../assets/plus-circle.png")} />
@@ -47,4 +45,7 @@ const styles = StyleSheet.create({
     marginTop: 212,
     alignItems: 'center'
   },
+  textBox: {
+    marginHorizontal: 30
+  }
 });
