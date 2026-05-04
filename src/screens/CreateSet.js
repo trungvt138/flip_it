@@ -1,13 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import { Image } from "react-native";
+import { StyleSheet, Image, Text, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "../components/Navbar";
 import HorizontalRuler from "../components/HorizontalRuler";
