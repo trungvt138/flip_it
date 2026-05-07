@@ -12,6 +12,7 @@ export default function Practice() {
               <Image source={require("../../assets/X.png")} />
             </TouchableOpacity>
         </View>
+        
         <ProgressBar />
       </SafeAreaView>
     </SafeAreaProvider>
