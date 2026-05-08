@@ -1,6 +1,7 @@
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, Image, Text, View, TextInput, TouchableOpacity } from "react-native";
 import ProgressBar from "../components/ProgressBar";
+import LCard from "../components/LCard";
 
 export default function Practice() {
   return (
@@ -14,6 +15,9 @@ export default function Practice() {
         </View>
         
         <ProgressBar />
+
+        <LCard />
+                
       </SafeAreaView>
     </SafeAreaProvider>
   );
