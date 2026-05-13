@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 
 export default function NavItem(props) {
     return (
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity style={styles.navItem} onPress={props.onPress}>
             <View style={styles.iconWrapper}>
                 <Image source={props.icon} />
             </View>
