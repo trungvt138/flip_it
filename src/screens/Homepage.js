@@ -5,8 +5,10 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import NavBar from '../components/Navbar';
 import HorizontalRuler from '../components/HorizontalRuler';
 import TextBox from '../components/TextBox';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Homepage() {
+  const navigation = useNavigation();
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -14,7 +16,7 @@ export default function Homepage() {
           <TextBox style={styles.textBox} placeholder="Search..." />
           <HorizontalRuler />
           <View style={styles.plusCircleIcon}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Create")}>
               <Image source={require("../../assets/plus-circle.png")} />
             </TouchableOpacity>
             <Text>
