@@ -5,22 +5,10 @@ import Navbar from "../components/Navbar";
 import HorizontalRuler from "../components/HorizontalRuler";
 import LabeledInput from "../components/LabeledInput";
 import Card from "../components/Card";
-import { useState } from "react";
+import { useCards } from "../hooks/useCards";
 
 export default function CreateSet() {
-  const [cards, setCards] = useState([]);
-
-  function addCard(card) {
-    setCards((prevCards) => {
-      return [...prevCards, card];
-    });
-  }
-
-  function deleteCard(index) {
-    setCards((prevCards) => {
-      return prevCards.filter((card, i) => i !== index);
-    });
-  }
+  const { cards, addCard, deleteCard } = useCards();
 
   return (
     <SafeAreaProvider>
