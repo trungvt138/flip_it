@@ -1,11 +1,20 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import LabeledInputs from './LabeledInput';
 
-export default function Card() {
+export default function Card(props) {
     return (
         <View style={styles.card}>
             
-            <LabeledInputs label={"Front:"} rightElement={<Image source={require('../../assets/minus.png')} style={styles.image} />}/>
+            <LabeledInputs 
+                label={"Front:"} 
+                rightElement={
+                    <TouchableOpacity onPress={() => props.onDelete(props.index)}>
+                        <Image source={require('../../assets/minus.png')} 
+                            style={styles.image} 
+                        />
+                    </TouchableOpacity>
+                }
+            />
             <LabeledInputs label={"Back:"} style={styles.labeledInputBack}/>
         </View>
     )

@@ -5,8 +5,23 @@ import Navbar from "../components/Navbar";
 import HorizontalRuler from "../components/HorizontalRuler";
 import LabeledInput from "../components/LabeledInput";
 import Card from "../components/Card";
+import { useState } from "react";
 
 export default function CreateSet() {
+  const [cards, setCards] = useState([]);
+
+  function addCard(card) {
+    setCards((prevCards) => {
+      return [...prevCards, card];
+    });
+  }
+
+  function deleteCard(index) {
+    setCards((prevCards) => {
+      return prevCards.filter((card, i) => i !== index);
+    });
+  }
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -27,13 +42,22 @@ export default function CreateSet() {
 
             <ScrollView
               style={styles.scrollView}
-              contentContainerStyle={{ gap: 40}}
+              contentContainerStyle={{ gap: 40 }}
             >
-              <Card />
-              <Card />
-              <Card />
-              <View style={{alignItems: "center",}}>
-                <TouchableOpacity>
+              {cards.map((card, index) => {
+                return (
+                  <Card
+                    key={index}
+                    index={index}
+                    front={card.front}
+                    back={card.back}
+                    onDelete={deleteCard}
+                  />
+                );
+              })}
+
+              <View style={{ alignItems: "center" }}>
+                <TouchableOpacity onPress={() => addCard({ front: "", back: "" })}>
                   <Image source={require("../../assets/plus-circle.png")} />
                 </TouchableOpacity>
               </View>
