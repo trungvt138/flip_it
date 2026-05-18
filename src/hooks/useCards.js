@@ -1,7 +1,9 @@
 import { useState } from 'react';
 
 export function useCards() {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState([
+    { front: '', back: '' },
+  ]);
 
   function addCard(card) {
     setCards((prevCards) => {

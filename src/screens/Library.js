@@ -1,14 +1,14 @@
 
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
-import { Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import TextBox from '../components/TextBox';
 import HorizontalRuler from '../components/HorizontalRuler';
 import Navbar from '../components/Navbar'
 import LearningBox from '../components/LearningBox';
+import { useLearningBoxes } from '../hooks/useLearningBoxes';
 
 export default function Library() {
+    const { learningCards, addLearningBox, deleteLearningBox } = useLearningBoxes();
     return (
         <SafeAreaProvider>
             <SafeAreaView style={styles.container}>
@@ -16,16 +16,12 @@ export default function Library() {
                     <TextBox style={styles.textBox} placeholder="Search..." />
                     <HorizontalRuler />
                     <Text style={styles.sortText}> Sort by: Newest first </Text>
-                    <View style={{}}>
-                        <LearningBox />
-                    </View>
-                    <View style={{marginTop: 26}}>
-                        <LearningBox/>
-                    </View>
-                    <View style={{marginTop: 26}}>
-                        <LearningBox/>
-                    </View>
                     
+                    <ScrollView style={{width: '100%'}} contentContainerStyle={{alignItems: 'center', gap: 38}}>
+                        {learningCards.map((card, index) => (
+                            <LearningBox key={index} card={card} onDelete={() => deleteLearningBox(index)} />
+                        ))}
+                    </ScrollView>
                 </View>
                 <Navbar />
             </SafeAreaView>
@@ -55,6 +51,7 @@ const styles = StyleSheet.create({
         height: 22,
         fontSize: 12,
         color: 'black',
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
+        marginBottom: 15,
     }
 });
