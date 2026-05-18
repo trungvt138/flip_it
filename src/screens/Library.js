@@ -16,10 +16,16 @@ export default function Library() {
                     <TextBox style={styles.textBox} placeholder="Search..." />
                     <HorizontalRuler />
                     <Text style={styles.sortText}> Sort by: Newest first </Text>
-                    <View style={{ flex: 1, alignItems: 'center' }}>
+                    <View style={{}}>
                         <LearningBox />
-
                     </View>
+                    <View style={{marginTop: 26}}>
+                        <LearningBox/>
+                    </View>
+                    <View style={{marginTop: 26}}>
+                        <LearningBox/>
+                    </View>
+                    
                 </View>
                 <Navbar />
             </SafeAreaView>
