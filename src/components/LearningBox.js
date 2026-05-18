@@ -1,10 +1,15 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { Image } from "react-native";
 
 export default function LearningBox() {
   return (
     <View style={styles.learningBox}>
+
       <View style={styles.header}>
         <Text style={styles.datum}> 01.12.2026 </Text>
+        <TouchableOpacity style={styles.deleteButton}> 
+        <Image source={require("../../assets/Delete.png")}/>
+        </TouchableOpacity>
       </View>
 
       <Text style={styles.karteiName}> Englisch LK - Unit 3: Globalisierung </Text>
@@ -24,23 +29,32 @@ export default function LearningBox() {
 
 const styles = StyleSheet.create({
   learningBox: {
-    width: 300,
-    height: 152,
-    borderRadius: 14,
-    marginTop: 12,
+    width: 300, 
+    height: 152, 
+    borderRadius: 14, 
+    marginTop: 15,
+    marginBottom: 26,
     backgroundColor: '#D9D9D9',
   },
 
   header: {
     width: 300, 
     height: 29, 
-    borderRadius: 9, 
+    borderTopLeftRadius: 9, 
+    borderTopRightRadius: 9, 
     justifyContent: 'center', 
     backgroundColor: '#9080F7',
   },
 
   datum: {
     marginLeft: 11, color: 'white'
+  },
+
+  deleteButton: {
+    width: 20,
+    heihgt: 20, 
+    marginLeft: 272,
+    marginTop: -20,
   },
 
   karteiName: {
@@ -56,6 +70,7 @@ const styles = StyleSheet.create({
     height: 22, 
     textAlign: 'center', 
     marginTop: 3, 
+    fontSize: 12,
     color: '#37373'
   },
 

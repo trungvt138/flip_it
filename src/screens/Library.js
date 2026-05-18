@@ -1,7 +1,5 @@
 
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
-import { Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import TextBox from '../components/TextBox';
 import HorizontalRuler from '../components/HorizontalRuler';
@@ -16,10 +14,11 @@ export default function Library() {
                     <TextBox style={styles.textBox} placeholder="Search..." />
                     <HorizontalRuler />
                     <Text style={styles.sortText}> Sort by: Newest first </Text>
-                    <View style={{ flex: 1, alignItems: 'center' }}>
+                    
+                    <ScrollView style={{width: '100%'}} contentContainerStyle={{alignItems: 'center'}}>
                         <LearningBox />
-
-                    </View>
+                        <LearningBox />
+                    </ScrollView>
                 </View>
                 <Navbar />
             </SafeAreaView>
