@@ -26,6 +26,17 @@ export default function Library() {
 <View style={{}}>
     <LearningBox/>
 </View>
+
+<View style={{paddingTop: 26}}>
+    <LearningBox/>
+</View>
+
+<View style={{paddingTop: 26}}>
+    <LearningBox/>
+</View>
+
+
+
                
                 </View>
 

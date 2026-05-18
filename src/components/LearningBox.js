@@ -23,7 +23,7 @@ export default function LearningBox() {
 
 const styles = StyleSheet.create({
     learningBox: {
-    width: 300, height: 152, borderRadius: 14, marginTop: 12, backgroundColor:'#D9D9D9',
+    width: 300, height: 152, borderRadius: 14, marginTop: 15, backgroundColor:'#D9D9D9',
   },
 
   header: {
