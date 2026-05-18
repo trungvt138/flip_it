@@ -6,16 +6,24 @@ export default function Card(props) {
         <View style={styles.card}>
             
             <LabeledInputs 
-                label={"Front:"} 
+                label={"Front:"}
+                value={props.front}
+                onChangeText={(text) => props.onChangeFront(props.index, text)} 
                 rightElement={
                     <TouchableOpacity onPress={() => props.onDelete(props.index)}>
-                        <Image source={require('../../assets/minus.png')} 
+                        <Image 
+                            source={require('../../assets/minus.png')} 
                             style={styles.image} 
                         />
                     </TouchableOpacity>
                 }
             />
-            <LabeledInputs label={"Back:"} style={styles.labeledInputBack}/>
+            <LabeledInputs 
+                label={"Back:"} 
+                value={props.back} 
+                onChangeText={(text) => props.onChangeBack(props.index, text)}
+                style={styles.labeledInputBack}
+            />
         </View>
     )
 }

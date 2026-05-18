@@ -1,13 +1,15 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-export default function LearningBox() {
+export default function LearningBox(props) {
+  const navigation = useNavigation();
   return (
     <View style={styles.learningBox}>
 
       <View style={styles.header}>
         <Text style={styles.datum}> 01.12.2026 </Text>
-        <TouchableOpacity style={styles.deleteButton}> 
+        <TouchableOpacity style={styles.deleteButton} onPress={() => props.onDelete(props.id)}> 
         <Image source={require("../../assets/Delete.png")}/>
         </TouchableOpacity>
       </View>
@@ -19,7 +21,7 @@ export default function LearningBox() {
         <Text style={{ color: 'white' }}> Edit </Text> 
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.practiceButton} >
+      <TouchableOpacity style={styles.practiceButton} onPress={() => navigation.navigate('Practice')}>
         <Text style={{ color: '#9080F7' }}> Practice </Text> 
       </TouchableOpacity>
     </View>
@@ -32,8 +34,6 @@ const styles = StyleSheet.create({
     width: 300, 
     height: 152, 
     borderRadius: 14, 
-    marginTop: 15,
-    marginBottom: 26,
     backgroundColor: '#D9D9D9',
   },
 

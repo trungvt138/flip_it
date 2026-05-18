@@ -5,8 +5,10 @@ import TextBox from '../components/TextBox';
 import HorizontalRuler from '../components/HorizontalRuler';
 import Navbar from '../components/Navbar'
 import LearningBox from '../components/LearningBox';
+import { useLearningBoxes } from '../hooks/useLearningBoxes';
 
 export default function Library() {
+    const { learningCards, addLearningBox, deleteLearningBox } = useLearningBoxes();
     return (
         <SafeAreaProvider>
             <SafeAreaView style={styles.container}>
@@ -15,9 +17,10 @@ export default function Library() {
                     <HorizontalRuler />
                     <Text style={styles.sortText}> Sort by: Newest first </Text>
                     
-                    <ScrollView style={{width: '100%'}} contentContainerStyle={{alignItems: 'center'}}>
-                        <LearningBox />
-                        <LearningBox />
+                    <ScrollView style={{width: '100%'}} contentContainerStyle={{alignItems: 'center', gap: 38}}>
+                        {learningCards.map((card, index) => (
+                            <LearningBox key={index} card={card} onDelete={() => deleteLearningBox(index)} />
+                        ))}
                     </ScrollView>
                 </View>
                 <Navbar />
@@ -48,6 +51,7 @@ const styles = StyleSheet.create({
         height: 22,
         fontSize: 12,
         color: 'black',
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
+        marginBottom: 15,
     }
 });
