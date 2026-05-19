@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
-import { useEffect } from "react";
 import TextBox from "../components/TextBox";
 import HorizontalRuler from "../components/HorizontalRuler";
 import Navbar from "../components/Navbar";
@@ -9,15 +7,8 @@ import LearningBox from "../components/LearningBox";
 import { useLearningBoxes } from "../hooks/useLearningBoxes";
 
 export default function Library({ route }) {
-  const { learningBoxes, addLearningBox, deleteLearningBox } = useLearningBoxes();
+  const { learningBoxes, deleteLearningBox } = useLearningBoxes();
   
-  useEffect(() => {
-    if (route.params) {
-      const { name, date, cardCount, cards } = route.params;
-      addLearningBox({ name, date, cardCount, cards });
-    }
-  }, [route.params]);
-
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>

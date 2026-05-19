@@ -8,11 +8,14 @@ import Card from "../components/Card";
 import { useCards } from "../hooks/useCards";
 import { useText } from "../hooks/useText";
 import { useNavigation } from "@react-navigation/native";
+import { useLearningBoxes } from "../hooks/useLearningBoxes";
 
 export default function CreateSet() {
   const { cards, addCard, deleteCard, updateCard } = useCards();
   const { text, handleChange } = useText();
   const navigation = useNavigation();
+  const { addLearningBox } = useLearningBoxes();
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -23,8 +26,9 @@ export default function CreateSet() {
             </TouchableOpacity>
             <Text style={styles.screenTitle}>Create New Set</Text>
             <TouchableOpacity onPress={() => {
-              navigation.navigate("Library", { name: text, date: new Date().toLocaleDateString(), cardCount: cards.length, cards: cards })
-             }}>
+              addLearningBox({ name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards: cards });
+              navigation.navigate("Library");
+            }}>
               <Image source={require("../../assets/check.png")} />
             </TouchableOpacity>
           </View>
