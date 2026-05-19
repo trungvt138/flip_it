@@ -6,10 +6,13 @@ import HorizontalRuler from "../components/HorizontalRuler";
 import LabeledInput from "../components/LabeledInput";
 import Card from "../components/Card";
 import { useCards } from "../hooks/useCards";
+import { useText } from "../hooks/useText";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CreateSet() {
-  const { cards, addCard, deleteCard } = useCards();
-
+  const { cards, addCard, deleteCard, updateCard } = useCards();
+  const { text, handleChange } = useText();
+  const navigation = useNavigation();
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -19,14 +22,16 @@ export default function CreateSet() {
               <Image source={require("../../assets/trash.png")} />
             </TouchableOpacity>
             <Text style={styles.screenTitle}>Create New Set</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate("Library", { name: text, date: new Date().toLocaleDateString(), cardCount: cards.length, cards: cards })
+             }}>
               <Image source={require("../../assets/check.png")} />
             </TouchableOpacity>
           </View>
           <HorizontalRuler />
 
           <View style={styles.body}>
-            <LabeledInput label={"Set Name:"} style={styles.labeledInput} />
+            <LabeledInput label={"Set Name:"} style={styles.labeledInput} onChangeText={handleChange} />
 
             <ScrollView
               style={styles.scrollView}
@@ -37,8 +42,8 @@ export default function CreateSet() {
                   <Card
                     key={index}
                     index={index}
-                    front={card.front}
-                    back={card.back}
+                    front={{ value: card.front }, {handleChange: (text) => updateCard(index, text, "front") }}
+                    back={{ value: card.back }, {handleChange: (text) => updateCard(index, text, "back") }}
                     onDelete={deleteCard}
                   />
                 );

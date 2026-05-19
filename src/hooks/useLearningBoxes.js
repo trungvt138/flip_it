@@ -1,8 +1,13 @@
 import { useState } from 'react';
 
 export function useLearningBoxes() {
-    const [learningCards, setLearningBoxes] = useState([
-        { name: 'Englisch LK - Unit 3: Globalisierung', date: '01.12.2026', cardCount: 10 }
+    const [learningBoxes, setLearningBoxes] = useState([
+    //     { name: 'Englisch LK - Unit 3: Globalisierung', date: '01.12.2026', cardCount: 2,
+    //         cards: [
+    //         { front: 'What is globalization?', back: 'Globalization is the process of interaction and integration among people, companies, and governments worldwide.' },
+    //         { front: 'What are the main drivers of globalization?', back: 'The main drivers of globalization include technological advancements, trade liberalization, and the growth of multinational corporations.' },
+    //     ] 
+    // }
     ]);
 
     function addLearningBox(card) {
@@ -16,5 +21,5 @@ export function useLearningBoxes() {
             return prevBoxes.filter((box, i) => i !== index);
         });
     }
-    return { learningCards, addLearningBox, deleteLearningBox };
+    return { learningBoxes, addLearningBox, deleteLearningBox };
 }

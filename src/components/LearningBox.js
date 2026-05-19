@@ -8,14 +8,14 @@ export default function LearningBox(props) {
     <View style={styles.learningBox}>
 
       <View style={styles.header}>
-        <Text style={styles.datum}> 01.12.2026 </Text>
+        <Text style={styles.datum}> {props.date} </Text>
         <TouchableOpacity style={styles.deleteButton} onPress={() => props.onDelete(props.id)}> 
         <Image source={require("../../assets/Delete.png")}/>
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.karteiName}> Englisch LK - Unit 3: Globalisierung </Text>
-      <Text style={styles.cardName}> 0/10 Cards </Text>
+      <Text style={styles.karteiName}> {props.name} </Text>
+      <Text style={styles.cardName}> {props.cardCount} Cards </Text>
 
       <TouchableOpacity style={styles.editButton}>
         <Text style={{ color: 'white' }}> Edit </Text> 

@@ -2,7 +2,12 @@ import { StyleSheet, Text, TextInput, } from 'react-native';
 
 export default function TextBox(props) {
     return (
-        <TextInput placeholder={props.placeholder} style={[styles.textBox, props.style]}/>
+        <TextInput 
+        placeholder={props.placeholder} 
+        style={[styles.textBox, props.style]}
+        value={props.value}
+        onChangeText={props.onChangeText}
+        />
     )
 }
 

@@ -1,13 +1,23 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import { useEffect } from "react";
 import TextBox from "../components/TextBox";
 import HorizontalRuler from "../components/HorizontalRuler";
 import Navbar from "../components/Navbar";
 import LearningBox from "../components/LearningBox";
 import { useLearningBoxes } from "../hooks/useLearningBoxes";
 
-export default function Library() {
-  const { learningCards, addLearningBox, deleteLearningBox } = useLearningBoxes();
+export default function Library({ route }) {
+  const { learningBoxes, addLearningBox, deleteLearningBox } = useLearningBoxes();
+  
+  useEffect(() => {
+    if (route.params) {
+      const { name, date, cardCount, cards } = route.params;
+      addLearningBox({ name, date, cardCount, cards });
+    }
+  }, [route.params]);
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -20,10 +30,13 @@ export default function Library() {
             style={{ width: "100%" }}
             contentContainerStyle={{ alignItems: "center", gap: 38 }}
           >
-            {learningCards.map((card, index) => (
+            {learningBoxes.map((box, index) => (
               <LearningBox
                 key={index}
-                card={card}
+                name={box.name}
+                date={box.date}
+                cardCount={box.cardCount}
+                cards={box.cards}
                 onDelete={() => deleteLearningBox(index)}
               />
             ))}
