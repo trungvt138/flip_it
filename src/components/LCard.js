@@ -1,22 +1,26 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, Animated } from "react-native";
 import { useLCardFlip } from "../hooks/useLCardFlip";
 
-const LCard = () => {
-    const { flipped, flip, flipToFrontStyle, flipToBackStyle } = useLCardFlip();
+const LCard = ({front, back, onNext}) => {
+    const { flipped, flip, flipToFrontStyle, flipToBackStyle, resetFlip } = useLCardFlip();
+
+    useEffect(() => {
+        resetFlip();
+    }, [front]);
 
     return (
         <View>
             <Animated.View style={[styles.card, styles.front, flipToFrontStyle]}>
                 <View></View>
-                <Text style={styles.text}>What is HTML?</Text>
+                <Text style={styles.text}>{front}</Text>
                 <TouchableOpacity style={styles.icon} onPress={flip}>
                     <Image source={require('../../assets/front-flip.png')}></Image>
                 </TouchableOpacity>
             </Animated.View>
             <Animated.View style={[styles.card, styles.back, flipToBackStyle]}>
                 <View></View>
-                <Text style={styles.text}>Hyper Text Markup Language</Text>
+                <Text style={styles.text}>{back}</Text>
                 <TouchableOpacity style={styles.icon} onPress={flip}>
                     <Image source={require('../../assets/back-flip.png')}></Image>
                 </TouchableOpacity>
@@ -24,11 +28,11 @@ const LCard = () => {
 
             {flipped && (
                 <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.repeat}>
-                    <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold', alignSelf: 'center', marginTop: 40}}>Repeat</Text>
+                <TouchableOpacity style={styles.repeat} onPress={onNext}>
+                    <Text style={styles.btnText}>Repeat</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.easy}>
-                    <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold', alignSelf: 'center', marginTop: 40}}>Easy</Text>
+                <TouchableOpacity style={styles.easy} onPress={onNext}>
+                    <Text style={styles.btnText}>Easy</Text>
                 </TouchableOpacity>
             </View>
             )}
@@ -86,6 +90,13 @@ const styles = StyleSheet.create({
         height: 112,
         backgroundColor: '#34C759',
         borderRadius: 14,
+    },
+    btnText: {
+        color: 'white', 
+        fontSize: 18, 
+        fontWeight: 'bold', 
+        alignSelf: 'center', 
+        marginTop: 40
     }
 })
 

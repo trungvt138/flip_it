@@ -42,5 +42,10 @@ export function useLCardFlip() {
         setFlipped(!flipped);
     };
 
-    return { flipped, flip, flipToFrontStyle , flipToBackStyle};
+    const resetFlip = () => {
+        flipAnim.setValue(0);
+        setFlipped(false);
+    };
+
+    return { flipped, flip, flipToFrontStyle , flipToBackStyle, resetFlip};
 }

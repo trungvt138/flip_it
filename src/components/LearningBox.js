@@ -20,7 +20,7 @@ export default function LearningBox(props) {
         <Text style={{ color: 'white' }}> Edit </Text> 
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.practiceButton} onPress={() => navigation.navigate('Practice')}>
+      <TouchableOpacity style={styles.practiceButton} onPress={() => navigation.navigate('Practice', { cards: props.cards, name: props.name })}>
         <Text style={{ color: '#9080F7' }}> Practice </Text> 
       </TouchableOpacity>
     </View>
@@ -57,15 +57,14 @@ const styles = StyleSheet.create({
   },
 
   karteiName: {
-    width: 268, 
-    height: 22, 
+    alignSelf: 'center',
     marginTop: 16, 
     fontSize: 16, 
-    marginLeft: 16, 
     color: 'black'
   },
 
   cardName: {
+    alignSelf: 'center',
     height: 22, 
     textAlign: 'center', 
     marginTop: 3, 

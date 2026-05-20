@@ -3,14 +3,27 @@ import { StyleSheet, Image, Text, View, TextInput, TouchableOpacity } from "reac
 import ProgressBar from "../components/ProgressBar";
 import LCard from "../components/LCard";
 import { useNavigation } from "@react-navigation/native";
+import useProgressBar from "../hooks/useProgressBar";
 
-export default function Practice() {
+export default function Practice({ route }) {
   const navigation = useNavigation();
+  const { progress, incrementProgress } = useProgressBar();
+  const { cards = [], name = "" } = route.params || {};
+  const currentCard = cards[progress] || {};
+
+  function handleNext() {
+    if (progress < cards.length - 1) {
+        incrementProgress();
+    } else {
+        navigation.goBack();
+    }
+  }
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <View style={styles.head}>
-          <Text style={styles.screenTitle}>Web Programming</Text>
+          <Text style={styles.screenTitle}>{name}</Text>
           <TouchableOpacity
             style={styles.closeButton}
             onPress={() => navigation.goBack()}
@@ -19,9 +32,9 @@ export default function Practice() {
           </TouchableOpacity>
         </View>
 
-        <ProgressBar />
+        <ProgressBar progress={progress + 1} cardCount={cards.length} />
 
-        <LCard />
+        <LCard front={currentCard.front} back={currentCard.back} onNext={handleNext} />
       </SafeAreaView>
     </SafeAreaProvider>
   );

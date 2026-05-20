@@ -5,11 +5,10 @@ export default function Card(props) {
     return (
         <View style={styles.card}>
             
-            <LabeledInputs 
+            <LabeledInputs
                 label={"Front:"}
                 value={props.front}
-                onChangeText={props.front.handleChange}
-                //onChangeText={(text) => props.onChangeFront(props.index, text)} 
+                onChangeText={props.onFrontChange}
                 rightElement={
                     <TouchableOpacity onPress={() => props.onDelete(props.index)}>
                         <Image 
@@ -19,11 +18,10 @@ export default function Card(props) {
                     </TouchableOpacity>
                 }
             />
-            <LabeledInputs 
-                label={"Back:"} 
+            <LabeledInputs
+                label={"Back:"}
                 value={props.back}
-                onChangeText={props.back.handleChange}
-                //onChangeText={(text) => props.onChangeBack(props.index, text)}
+                onChangeText={props.onBackChange}
                 style={styles.labeledInputBack}
             />
         </View>

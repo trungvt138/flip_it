@@ -46,8 +46,10 @@ export default function CreateSet() {
                   <Card
                     key={index}
                     index={index}
-                    front={{ value: card.front }, {handleChange: (text) => updateCard(index, text, "front") }}
-                    back={{ value: card.back }, {handleChange: (text) => updateCard(index, text, "back") }}
+                    front={card.front}
+                    back={card.back}
+                    onFrontChange={(text) => updateCard(index, "front", text)}
+                    onBackChange={(text) => updateCard(index, "back", text)}
                     onDelete={deleteCard}
                   />
                 );
