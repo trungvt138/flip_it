@@ -4,18 +4,33 @@ import ProgressBar from "../components/ProgressBar";
 import LCard from "../components/LCard";
 import { useNavigation } from "@react-navigation/native";
 import useProgressBar from "../hooks/useProgressBar";
+import { usePracticeSession } from "../hooks/usePracticeSession";
 
 export default function Practice({ route }) {
   const navigation = useNavigation();
   const { progress, incrementProgress } = useProgressBar();
+  const { easy, repeat, repeatCards, markEasy, markRepeat } = usePracticeSession();
   const { cards = [], name = "" } = route.params || {};
   const currentCard = cards[progress] || {};
 
-  function handleNext() {
+  function handleEasy() {
+    const newEasy = easy + 1;
+    markEasy();
     if (progress < cards.length - 1) {
-        incrementProgress();
+      incrementProgress();
     } else {
-        navigation.goBack();
+      navigation.navigate('SessionComplete', { easy: newEasy, repeat, repeatCards, cards, name });
+    }
+  }
+
+  function handleRepeat() {
+    const newRepeat = repeat + 1;
+    const newRepeatCards = [...repeatCards, currentCard];
+    markRepeat(currentCard);
+    if (progress < cards.length - 1) {
+      incrementProgress();
+    } else {
+      navigation.navigate('SessionComplete', { easy, repeat: newRepeat, repeatCards: newRepeatCards, cards, name });
     }
   }
 
@@ -34,7 +49,7 @@ export default function Practice({ route }) {
 
         <ProgressBar progress={progress + 1} cardCount={cards.length} />
 
-        <LCard front={currentCard.front} back={currentCard.back} onNext={handleNext} />
+        <LCard front={currentCard.front} back={currentCard.back} onEasy={handleEasy} onRepeat={handleRepeat} />
       </SafeAreaView>
     </SafeAreaProvider>
   );

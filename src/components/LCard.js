@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, Animated } from "react-native";
 import { useLCardFlip } from "../hooks/useLCardFlip";
 
-const LCard = ({front, back, onNext}) => {
+const LCard = ({front, back, onEasy, onRepeat}) => {
     const { flipped, flip, flipToFrontStyle, flipToBackStyle, resetFlip } = useLCardFlip();
 
     useEffect(() => {
@@ -28,10 +28,10 @@ const LCard = ({front, back, onNext}) => {
 
             {flipped && (
                 <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.repeat} onPress={onNext}>
+                <TouchableOpacity style={styles.repeat} onPress={onRepeat}>
                     <Text style={styles.btnText}>Repeat</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.easy} onPress={onNext}>
+                <TouchableOpacity style={styles.easy} onPress={onEasy}>
                     <Text style={styles.btnText}>Easy</Text>
                 </TouchableOpacity>
             </View>
