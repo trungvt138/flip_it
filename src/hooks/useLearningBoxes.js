@@ -13,8 +13,12 @@ export function LearningBoxesProvider({ children }) {
         setLearningBoxes(prev => prev.filter((_, i) => i !== index));
     }
 
+    function getLastLearningBox() {
+        return learningBoxes[learningBoxes.length - 1] ?? null;
+    }
+
     return (
-        <LearningBoxesContext.Provider value={{ learningBoxes, addLearningBox, deleteLearningBox }}>
+        <LearningBoxesContext.Provider value={{ learningBoxes, addLearningBox, deleteLearningBox, getLastLearningBox }}>
             {children}
         </LearningBoxesContext.Provider>
     );

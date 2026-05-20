@@ -21,14 +21,14 @@ export default function Library({ route }) {
             style={{ width: "100%" }}
             contentContainerStyle={{ alignItems: "center", gap: 38 }}
           >
-            {learningBoxes.map((box, index) => (
+            {learningBoxes.slice().reverse().map((box, index) => (
               <LearningBox
                 key={index}
                 name={box.name}
                 date={box.date}
                 cardCount={box.cardCount}
                 cards={box.cards}
-                onDelete={() => deleteLearningBox(index)}
+                onDelete={() => deleteLearningBox(learningBoxes.length - 1 - index)}
               />
             ))}
           </ScrollView>

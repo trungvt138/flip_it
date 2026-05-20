@@ -1,5 +1,4 @@
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { Image } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function LearningBox(props) {
