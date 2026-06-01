@@ -8,7 +8,7 @@ export default function LabeledInput(props) {
                 <Text>{props.label}</Text>
                 {props.rightElement}
             </View>
-            <TextBox />
+            <TextBox value={props.value} onChangeText={props.onChangeText} />
         </View>
     )
 }

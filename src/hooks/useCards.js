@@ -17,5 +17,16 @@ export function useCards() {
     });
   }
 
-  return { cards, addCard, deleteCard };
+  function updateCard(index, field, value) {
+    setCards((prevCards) => {
+      return prevCards.map((card, i) => {
+        if (i === index) {
+          return { ...card, [field]: value };
+        }
+        return card;
+      });
+    });
+  }
+
+  return { cards, addCard, deleteCard, updateCard };
 }

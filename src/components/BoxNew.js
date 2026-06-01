@@ -7,10 +7,7 @@ export default function LearningBox(props) {
     <View style={styles.learningBox}>
 
       <View style={styles.header}>
-        <Text style={styles.datum}> {props.date} </Text>
-        <TouchableOpacity style={styles.deleteButton} onPress={() => props.onDelete(props.id)}> 
-        <Image source={require("../../assets/Delete.png")}/>
-        </TouchableOpacity>
+        <Text style={styles.datum}> NEW! </Text>
       </View>
 
       <Text style={styles.karteiName}> {props.name} </Text>
@@ -46,7 +43,9 @@ const styles = StyleSheet.create({
   },
 
   datum: {
-    marginLeft: 11, color: 'white'
+    marginLeft: 11, 
+    color: 'white',
+    fontSize: 20,
   },
 
   deleteButton: {
@@ -91,8 +90,6 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'center', 
     borderRadius: 9, 
-    borderWidth: 1,
-    borderColor: '#9080F7',
-    backgroundColor: '#FFF',
-  },
+    backgroundColor: '#FFF'
+  }
 })

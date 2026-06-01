@@ -1,20 +1,29 @@
-import { useState } from 'react';
+import { useState, createContext, useContext } from 'react';
 
-export function useLearningBoxes() {
-    const [learningCards, setLearningBoxes] = useState([
-        { name: 'Englisch LK - Unit 3: Globalisierung', date: '01.12.2026', cardCount: 10 }
-    ]);
+const LearningBoxesContext = createContext();
 
-    function addLearningBox(card) {
-        setLearningBoxes((prevBoxes) => {
-            return [...prevBoxes, card];
-        });
+export function LearningBoxesProvider({ children }) {
+    const [learningBoxes, setLearningBoxes] = useState([]);
+
+    function addLearningBox(box) {
+        setLearningBoxes(prev => [...prev, box]);
     }
 
     function deleteLearningBox(index) {
-        setLearningBoxes((prevBoxes) => {
-            return prevBoxes.filter((box, i) => i !== index);
-        });
+        setLearningBoxes(prev => prev.filter((_, i) => i !== index));
     }
-    return { learningCards, addLearningBox, deleteLearningBox };
+
+    function getLastLearningBox() {
+        return learningBoxes[learningBoxes.length - 1] ?? null;
+    }
+
+    return (
+        <LearningBoxesContext.Provider value={{ learningBoxes, addLearningBox, deleteLearningBox, getLastLearningBox }}>
+            {children}
+        </LearningBoxesContext.Provider>
+    );
+}
+
+export function useLearningBoxes() {
+    return useContext(LearningBoxesContext);
 }
