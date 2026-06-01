@@ -35,8 +35,9 @@ export default function Homepage() {
               <View style={{ width: '100%', alignItems: 'center', padding: 30 , paddingBottom: 15}}>
                 <BoxNew
                   name={lastBox.name}
-                  cardCount={lastBox.cardCount} 
+                  cardCount={lastBox.cardCount}
                   cards={lastBox.cards}
+                  index={learningBoxes.length - 1}
                 />
               </View>
               <HorizontalRuler />
@@ -49,6 +50,7 @@ export default function Homepage() {
                     key={index}
                     name={box.name}
                     cardCount={box.cardCount}
+                    cards={box.cards}
                   />
                 ))}
               </View>
