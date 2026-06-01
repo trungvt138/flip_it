@@ -42,7 +42,7 @@ export default function EditSet({ route }) {
           <HorizontalRuler />
 
           <View style={styles.body}>
-            <LabeledInput label={"Set Name:"} style={styles.labeledInput} onChangeText={handleChange} />
+            <LabeledInput label={"Set Name:"} style={styles.labeledInput} onChangeText={handleChange} value={text} />
 
             <ScrollView
               style={styles.scrollView}
