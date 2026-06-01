@@ -5,7 +5,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import NavBar from '../components/Navbar';
 import HorizontalRuler from '../components/HorizontalRuler';
 import TextBox from '../components/TextBox';
-import LearningBox from '../components/LearningBox';
+import BoxNew from '../components/BoxNew';
 import { useNavigation } from '@react-navigation/native';
 import { useLearningBoxes } from '../hooks/useLearningBoxes';
 import LearningBoxRecent from '../components/LearningBoxRecent';
@@ -33,9 +33,8 @@ export default function Homepage() {
           ): (
             <View style={{ width: '100%', alignItems: 'center'}}>
               <View style={{ width: '100%', alignItems: 'center', padding: 30 , paddingBottom: 15}}>
-                <LearningBox
+                <BoxNew
                   name={lastBox.name}
-                  date={lastBox.date}
                   cardCount={lastBox.cardCount} 
                   cards={lastBox.cards}
                 />
