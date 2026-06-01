@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Image, Text, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "../components/Navbar";
@@ -10,32 +9,40 @@ import { useText } from "../hooks/useText";
 import { useNavigation } from "@react-navigation/native";
 import { useLearningBoxes } from "../hooks/useLearningBoxes";
 
-export default function CreateSet() {
-  const { cards, addCard, deleteCard, updateCard } = useCards();
-  const { text, handleChange } = useText();
+export default function EditSet({ route }) {
+  const { cards: initialCards, name: initialName } = route.params;
+  const { cards, addCard, deleteCard, updateCard } = useCards(initialCards);
+  const { text, handleChange } = useText(initialName);
   const navigation = useNavigation();
-  const { addLearningBox } = useLearningBoxes();
+  const { updateLearningBox, deleteLearningBox } = useLearningBoxes();
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
           <View style={styles.head}>
-            <TouchableOpacity>
+
+            <TouchableOpacity onPress={() => {
+                deleteLearningBox(route.params.index);
+                navigation.goBack()
+                }}>
               <Image source={require("../../assets/trash.png")} />
             </TouchableOpacity>
-            <Text style={styles.screenTitle}>Create New Set</Text>
+
+            <Text style={styles.screenTitle}>Edit Set</Text>
+
             <TouchableOpacity onPress={() => {
-              addLearningBox({ name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards: cards });
+              updateLearningBox(route.params.index, { name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards: cards });
               navigation.navigate("Library");
             }}>
               <Image source={require("../../assets/check.png")} />
             </TouchableOpacity>
+
           </View>
           <HorizontalRuler />
 
           <View style={styles.body}>
-            <LabeledInput label={"Set Name:"} style={styles.labeledInput} onChangeText={handleChange} />
+            <LabeledInput label={"Set Name:"} style={styles.labeledInput} onChangeText={handleChange} value={text} />
 
             <ScrollView
               style={styles.scrollView}
@@ -44,7 +51,7 @@ export default function CreateSet() {
               {cards.map((card, index) => {
                 return (
                   <Card
-                    key={index}
+                    key={card.id}
                     index={index}
                     front={card.front}
                     back={card.back}

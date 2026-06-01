@@ -7,16 +7,13 @@ export default function LearningBox(props) {
     <View style={styles.learningBox}>
 
       <View style={styles.header}>
-        <Text style={styles.datum}> {props.date} </Text>
-        <TouchableOpacity style={styles.deleteButton} onPress={() => props.onDelete(props.id)}> 
-        <Image source={require("../../assets/Delete.png")}/>
-        </TouchableOpacity>
+        <Text style={styles.datum}> NEW! </Text>
       </View>
 
       <Text style={styles.karteiName}> {props.name} </Text>
       <Text style={styles.cardName}> {props.cardCount} Cards </Text>
 
-      <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditSet', { cards: props.cards, name: props.name, index: props.index })}>
+      <TouchableOpacity style={styles.editButton}>
         <Text style={{ color: 'white' }}> Edit </Text> 
       </TouchableOpacity>
 
@@ -46,7 +43,9 @@ const styles = StyleSheet.create({
   },
 
   datum: {
-    marginLeft: 11, color: 'white'
+    marginLeft: 11, 
+    color: 'white',
+    fontSize: 20,
   },
 
   deleteButton: {

@@ -5,7 +5,9 @@ import CreateSet from "../screens/CreateSet";
 import Homepage from "../screens/Homepage";
 import Practice from "../screens/Practice";
 import Library from "../screens/Library";
+import SessionComplete from "../screens/SessionComplete";
 import { LearningBoxesProvider } from '../hooks/useLearningBoxes';
+import EditSet from "../screens/EditSet";
 
 
 const Stack = createNativeStackNavigator();
@@ -22,6 +24,8 @@ export default function AppNavigator() {
         <Stack.Screen name="Create" component={CreateSet}></Stack.Screen>
         <Stack.Screen name="Practice" component={Practice}></Stack.Screen>
         <Stack.Screen name="Library" component={Library}></Stack.Screen>
+        <Stack.Screen name="SessionComplete" component={SessionComplete}></Stack.Screen>
+        <Stack.Screen name="EditSet" component={EditSet}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
     </LearningBoxesProvider>
