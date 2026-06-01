@@ -7,7 +7,7 @@ import LearningBox from "../components/LearningBox";
 import { useLearningBoxes } from "../hooks/useLearningBoxes";
 
 export default function Library({ route }) {
-  const { learningBoxes, deleteLearningBox } = useLearningBoxes();
+  const { learningBoxes, deleteLearningBox, updateLearningBox } = useLearningBoxes();
   
   return (
     <SafeAreaProvider>
@@ -21,16 +21,20 @@ export default function Library({ route }) {
             style={{ width: "100%" }}
             contentContainerStyle={{ alignItems: "center", gap: 38 }}
           >
-            {learningBoxes.slice().reverse().map((box, index) => (
-              <LearningBox
-                key={index}
-                name={box.name}
-                date={box.date}
-                cardCount={box.cardCount}
-                cards={box.cards}
-                onDelete={() => deleteLearningBox(learningBoxes.length - 1 - index)}
-              />
-            ))}
+            {learningBoxes.slice().reverse().map((box, index) => {
+              const realIndex = learningBoxes.length - 1 - index;
+              return (
+                <LearningBox
+                  key={index}
+                  index={realIndex}
+                  name={box.name}
+                  date={box.date}
+                  cardCount={box.cardCount}
+                  cards={box.cards}
+                  onDelete={() => deleteLearningBox(realIndex)}
+                />
+              );
+            })}
           </ScrollView>
         </View>
         <Navbar />

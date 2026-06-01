@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-export function useCards() {
-  const [cards, setCards] = useState([
-    { front: '', back: '' },
-  ]);
+export function useCards(initialCards = [{ front: '', back: '' }]) {
+  const [cards, setCards] = useState(() =>
+    initialCards.map((c, i) => ({ ...c, id: c.id ?? i }))
+  );
 
   function addCard(card) {
     setCards((prevCards) => {
-      return [...prevCards, card];
+      return [...prevCards, { ...card, id: Date.now() }];
     });
   }
 

@@ -16,7 +16,7 @@ export default function LearningBox(props) {
       <Text style={styles.karteiName}> {props.name} </Text>
       <Text style={styles.cardName}> {props.cardCount} Cards </Text>
 
-      <TouchableOpacity style={styles.editButton}>
+      <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditSet', { cards: props.cards, name: props.name, index: props.index })}>
         <Text style={{ color: 'white' }}> Edit </Text> 
       </TouchableOpacity>
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export function useText() {
-    const [text, setText] = useState("");
+export function useText(initialText = "") {
+    const [text, setText] = useState(initialText);
 
     function handleChange(newText) {
         setText(newText);
