@@ -1,0 +1,13 @@
+Please complete the following tasks:
+
+Conduct a usability testing
+Find 5 test users
+Let them do (at least 2) concrete tasks in your app (e.g. "Create a recipe" in a cooking app)
+Use the following tools
+Observations: Observe their actions and note down usability problems (do not help or guide them)
+Think Aloud Protocol: Ask them to "think aloud" while using the app and take notes
+Interview: After using the app, ask them (at least 2) open "w"-questions about the usability of your app
+Analyze the data
+Which problems were observed on more than 1 test user?
+Which problems were mentioned by more than 1 test user?
+Write a summary report
