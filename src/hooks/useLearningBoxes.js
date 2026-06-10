@@ -17,8 +17,12 @@ export function LearningBoxesProvider({ children }) {
         return learningBoxes[learningBoxes.length - 1] ?? null;
     }
 
+    function updateLearningBox(index, box) {
+        setLearningBoxes(prev => prev.map((b, i) => i === index ? box : b));
+    }
+
     return (
-        <LearningBoxesContext.Provider value={{ learningBoxes, addLearningBox, deleteLearningBox, getLastLearningBox }}>
+        <LearningBoxesContext.Provider value={{ learningBoxes, addLearningBox, deleteLearningBox, getLastLearningBox, updateLearningBox }}>
             {children}
         </LearningBoxesContext.Provider>
     );
