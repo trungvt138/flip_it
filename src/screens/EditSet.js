@@ -1,9 +1,11 @@
 import { StyleSheet, Image, Text, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "../components/Navbar";
 import HorizontalRuler from "../components/HorizontalRuler";
 import LabeledInput from "../components/LabeledInput";
 import Card from "../components/Card";
+import ConfirmModal from "../components/ConfirmModal";
 import { useCards } from "../hooks/useCards";
 import { useText } from "../hooks/useText";
 import { useNavigation } from "@react-navigation/native";
@@ -15,26 +17,40 @@ export default function EditSet({ route }) {
   const { text, handleChange } = useText(initialName);
   const navigation = useNavigation();
   const { updateLearningBox, deleteLearningBox } = useLearningBoxes();
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [saveModalVisible, setSaveModalVisible] = useState(false);
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
+        <ConfirmModal
+          visible={deleteModalVisible}
+          title="Delete Set"
+          message={`Are you sure you want to delete "${initialName}"? This cannot be undone.`}
+          confirmLabel="Delete"
+          confirmColor="#E53935"
+          onConfirm={() => { setDeleteModalVisible(false); deleteLearningBox(route.params.index); navigation.goBack(); }}
+          onCancel={() => setDeleteModalVisible(false)}
+        />
+        <ConfirmModal
+          visible={saveModalVisible}
+          title="Save Changes"
+          message="Do you want to save the changes to this set?"
+          confirmLabel="Save"
+          confirmColor="#9080F7"
+          onConfirm={() => { setSaveModalVisible(false); updateLearningBox(route.params.index, { name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards }); navigation.navigate("Library"); }}
+          onCancel={() => setSaveModalVisible(false)}
+        />
         <View style={styles.content}>
           <View style={styles.head}>
 
-            <TouchableOpacity onPress={() => {
-                deleteLearningBox(route.params.index);
-                navigation.goBack()
-                }}>
+            <TouchableOpacity onPress={() => setDeleteModalVisible(true)}>
               <Image source={require("../../assets/trash.png")} />
             </TouchableOpacity>
 
             <Text style={styles.screenTitle}>Edit Set</Text>
 
-            <TouchableOpacity onPress={() => {
-              updateLearningBox(route.params.index, { name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards: cards });
-              navigation.navigate("Library");
-            }}>
+            <TouchableOpacity onPress={() => setSaveModalVisible(true)}>
               <Image source={require("../../assets/check.png")} />
             </TouchableOpacity>
 

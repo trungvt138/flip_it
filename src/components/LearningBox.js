@@ -1,15 +1,28 @@
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import ConfirmModal from "./ConfirmModal";
 
 export default function LearningBox(props) {
   const navigation = useNavigation();
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+
   return (
     <View style={styles.learningBox}>
+      <ConfirmModal
+        visible={deleteModalVisible}
+        title="Delete Set"
+        message={`Are you sure you want to delete "${props.name}"?`}
+        confirmLabel="Delete"
+        confirmColor="#E53935"
+        onConfirm={() => { setDeleteModalVisible(false); props.onDelete(props.id); }}
+        onCancel={() => setDeleteModalVisible(false)}
+      />
 
       <View style={styles.header}>
         <Text style={styles.datum}> {props.date} </Text>
-        <TouchableOpacity style={styles.deleteButton} onPress={() => props.onDelete(props.id)}> 
-        <Image source={require("../../assets/Delete.png")}/>
+        <TouchableOpacity style={styles.deleteButton} onPress={() => setDeleteModalVisible(true)}>
+          <Image source={require("../../assets/x.png")} style={{ width: 20, height: 20, tintColor: '#fff' }} />
         </TouchableOpacity>
       </View>
 

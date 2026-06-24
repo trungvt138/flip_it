@@ -43,7 +43,7 @@ export default function Practice({ route }) {
             style={styles.closeButton}
             onPress={() => navigation.goBack()}
           >
-            <Image source={require("../../assets/X.png")} />
+            <Image source={require("../../assets/x.png")} />
           </TouchableOpacity>
         </View>
 
