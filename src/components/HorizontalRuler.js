@@ -8,9 +8,10 @@ export default function HorizontalRuler() {
 
 const styles = StyleSheet.create({
     horizontalRuler: {
-    alignSelf: 'stretch',
-    borderBottomColor: 'black',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    paddingTop: 15
-  },
+      alignSelf: 'stretch',
+      borderBottomColor: '#c4b5fd',
+      borderBottomWidth: 1,
+      paddingTop: 15,
+      opacity: 0.6,
+    },
 })
