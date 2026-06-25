@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { Feather } from "@expo/vector-icons";
 import ConfirmModal from "./ConfirmModal";
 
 export default function LearningBox(props) {
@@ -21,91 +22,91 @@ export default function LearningBox(props) {
 
       <View style={styles.header}>
         <Text style={styles.datum}> {props.date} </Text>
-        <TouchableOpacity style={styles.deleteButton} onPress={() => setDeleteModalVisible(true)}>
-          <Image source={require("../../assets/x.png")} style={{ width: 20, height: 20, tintColor: '#fff' }} />
-        </TouchableOpacity>
+        <View style={styles.headerActions}>
+          <TouchableOpacity onPress={() => navigation.navigate('EditSet', { cards: props.cards, name: props.name, index: props.index })}>
+            <Feather name="edit-2" size={16} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setDeleteModalVisible(true)}>
+            <Image source={require("../../assets/x.png")} style={styles.xIcon} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <Text style={styles.karteiName}> {props.name} </Text>
       <Text style={styles.cardName}> {props.cardCount} Cards </Text>
 
-      <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditSet', { cards: props.cards, name: props.name, index: props.index })}>
-        <Text style={{ color: 'white' }}> Edit </Text> 
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.practiceButton} onPress={() => navigation.navigate('Practice', { cards: props.cards, name: props.name })}>
-        <Text style={{ color: '#9080F7' }}> Practice </Text> 
-      </TouchableOpacity>
+      <View style={styles.actions}>
+        <TouchableOpacity style={styles.practiceButton} onPress={() => navigation.navigate('Practice', { cards: props.cards, name: props.name })}>
+          <Text style={styles.practiceText}>Practice</Text>
+        </TouchableOpacity>
+      </View>
     </View>
-
   );
 }
 
 const styles = StyleSheet.create({
   learningBox: {
-    width: 300, 
-    height: 152, 
-    borderRadius: 14, 
-    backgroundColor: '#D9D9D9',
+    width: 300,
+    borderRadius: 14,
+    backgroundColor: '#ede9fe',
+    overflow: 'hidden',
   },
 
   header: {
-    width: 300, 
-    height: 29, 
-    borderTopLeftRadius: 9, 
-    borderTopRightRadius: 9, 
-    justifyContent: 'center', 
+    height: 29,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 11,
     backgroundColor: '#9080F7',
   },
 
   datum: {
-    marginLeft: 11, color: 'white'
+    color: 'white',
   },
 
-  deleteButton: {
-    width: 20,
-    heihgt: 20, 
-    marginLeft: 272,
-    marginTop: -20,
+  headerActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+
+  xIcon: {
+    width: 16,
+    height: 16,
+    tintColor: '#fff',
   },
 
   karteiName: {
     alignSelf: 'center',
-    marginTop: 16, 
-    fontSize: 16, 
-    color: 'black'
+    marginTop: 16,
+    fontSize: 16,
+    color: 'black',
   },
 
   cardName: {
     alignSelf: 'center',
-    height: 22, 
-    textAlign: 'center', 
-    marginTop: 3, 
+    textAlign: 'center',
+    marginTop: 3,
     fontSize: 12,
-    color: '#37373'
+    color: '#373737',
   },
 
-  editButton: {
-    width: 125, 
-    height: 31, 
-    marginTop: 15, 
-    marginLeft: 11, 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    borderRadius: 9, 
-    backgroundColor: '#9080F7',
+  actions: {
+    marginTop: 14,
+    borderTopWidth: 1,
+    borderTopColor: '#c4b5fd',
   },
 
   practiceButton: {
-    width: 125, 
-    height: 31, 
-    marginTop: -31, 
-    marginLeft: 163, 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    borderRadius: 9, 
-    borderWidth: 1,
-    borderColor: '#9080F7',
-    backgroundColor: '#FFF',
+    paddingVertical: 13,
+    alignItems: 'center',
+    backgroundColor: '#a78bfa',
   },
-})
+
+  practiceText: {
+    fontSize: 14,
+    color: '#fff',
+    fontWeight: '600',
+  },
+});
