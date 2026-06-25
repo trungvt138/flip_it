@@ -21,8 +21,12 @@ export function LearningBoxesProvider({ children }) {
         setLearningBoxes(prev => prev.map((b, i) => i === index ? box : b));
     }
 
+    function markOpened(index) {
+        setLearningBoxes(prev => prev.map((b, i) => i === index ? { ...b, lastOpenedAt: Date.now() } : b));
+    }
+
     return (
-        <LearningBoxesContext.Provider value={{ learningBoxes, addLearningBox, deleteLearningBox, getLastLearningBox, updateLearningBox }}>
+        <LearningBoxesContext.Provider value={{ learningBoxes, addLearningBox, deleteLearningBox, getLastLearningBox, updateLearningBox, markOpened }}>
             {children}
         </LearningBoxesContext.Provider>
     );

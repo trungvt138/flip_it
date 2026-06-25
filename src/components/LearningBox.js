@@ -36,7 +36,7 @@ export default function LearningBox(props) {
       <Text style={styles.cardName}> {props.cardCount} Cards </Text>
 
       <View style={styles.actions}>
-        <TouchableOpacity style={styles.practiceButton} onPress={() => navigation.navigate('Practice', { cards: props.cards, name: props.name })}>
+        <TouchableOpacity style={styles.practiceButton} onPress={() => { props.onOpen?.(); navigation.navigate('Practice', { cards: props.cards, name: props.name }); }}>
           <Text style={styles.practiceText}>Practice</Text>
         </TouchableOpacity>
       </View>
