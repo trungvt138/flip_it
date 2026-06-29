@@ -68,11 +68,11 @@ export default function SessionComplete({ route }) {
         {/* Action-Buttons unten */}
         <View style={styles.buttonActionArea}>
           <View style={styles.splitButtons}>
-            <TouchableOpacity style={styles.btnSecondary} onPress={() => navigation.replace('Practice', { cards: repeatCards, name: name })}>
+            <TouchableOpacity style={styles.btnRepeat} onPress={() => navigation.replace('Practice', { cards: repeatCards, name: name })}>
               <Text style={styles.btnText}>Repeat incorrect</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.btnSecondary} onPress={() => navigation.replace('Practice', { cards: cards, name: name })}>
+            <TouchableOpacity style={styles.btnStartOver} onPress={() => navigation.replace('Practice', { cards: cards, name: name })}>
               <Text style={styles.btnText}>Start over</Text>
             </TouchableOpacity>
           </View>
@@ -170,9 +170,16 @@ const styles = StyleSheet.create({
     gap: 12,
     marginBottom: 12,
   },
-  btnSecondary: {
+  btnRepeat: {
     flex: 1,
-    backgroundColor: '#9333ea',
+    backgroundColor: '#ec221f',
+    paddingVertical: 16,
+    borderRadius: 14,
+    alignItems: 'center',
+  },
+  btnStartOver: {
+    flex: 1,
+    backgroundColor: '#9080F7',
     paddingVertical: 16,
     borderRadius: 14,
     alignItems: 'center',
