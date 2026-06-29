@@ -30,7 +30,7 @@ Die Einstufung basiert auf einer Durchsicht des Codes (`Navbar.js`, `LearningBox
 18. Beziehung zwischen Home und Library neu gestalten — zusammenführen oder umstrukturieren ("Stapeln" statt getrennter Bereiche, mehr Statistiken, Überschrift, mehr Infos zu den letzten Sets); betrifft die Datenpräsentation in `Homepage.js` und `Library.js`
 19. Dark Theme implementieren — erfordert ein Theming-System, das auf alle `StyleSheet`-Definitionen der App angewendet wird
 20. Anmelde-/Account-Funktion hinzufügen — erfordert Auth-Flow, persistenten User-State, vermutlich neue Screens und Speicherlogik
-21. Verwirrung durch gemischte englisch/deutsche Sprache beheben — vermutlich ein einheitlicher Texte-Durchgang oder ein kleines i18n-Setup nötig (aktuell existiert keine Sprach-Infrastruktur im Code)
+
 
 ## Empfohlene Reihenfolge
 

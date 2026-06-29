@@ -1,10 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Image, Text, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "../components/Navbar";
 import HorizontalRuler from "../components/HorizontalRuler";
 import LabeledInput from "../components/LabeledInput";
 import Card from "../components/Card";
+import ConfirmModal from "../components/ConfirmModal";
 import { useCards } from "../hooks/useCards";
 import { useText } from "../hooks/useText";
 import { useNavigation } from "@react-navigation/native";
@@ -15,20 +17,40 @@ export default function CreateSet() {
   const { text, handleChange } = useText();
   const navigation = useNavigation();
   const { addLearningBox } = useLearningBoxes();
+  const [discardModalVisible, setDiscardModalVisible] = useState(false);
+  const [saveModalVisible, setSaveModalVisible] = useState(false);
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
+
+        <ConfirmModal
+          visible={discardModalVisible}
+          title="Discard Set"
+          message="Are you sure you want to discard this new set? This cannot be undone."
+          confirmLabel="Discard"
+          confirmColor="#E53935"
+          onConfirm={() => { setDiscardModalVisible(false); navigation.goBack(); }}
+          onCancel={() => setDiscardModalVisible(false)}
+        />
+        <ConfirmModal
+          visible={saveModalVisible}
+          title="Save Set"
+          message="Do you want to save this new set?"
+          confirmLabel="Save"
+          confirmColor="#9080F7"
+          onConfirm={() => { setSaveModalVisible(false); addLearningBox({ name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards }); navigation.navigate("Library"); }}
+          onCancel={() => setSaveModalVisible(false)}
+        />
+
         <View style={styles.content}>
+
           <View style={styles.head}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setDiscardModalVisible(true)}>
               <Image source={require("../../assets/trash.png")} />
             </TouchableOpacity>
             <Text style={styles.screenTitle}>Create New Set</Text>
-            <TouchableOpacity onPress={() => {
-              addLearningBox({ name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards: cards });
-              navigation.navigate("Library");
-            }}>
+            <TouchableOpacity onPress={() => setSaveModalVisible(true)}>
               <Image source={require("../../assets/check.png")} />
             </TouchableOpacity>
           </View>

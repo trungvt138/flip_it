@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   searchRow: {
-    width: '100%',
+    width: 341,
     paddingHorizontal: 20,
     zIndex: 10,
   },
