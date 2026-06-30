@@ -82,13 +82,13 @@ const styles = StyleSheet.create({
     repeat: {
         width: 133,
         height: 112,
-        backgroundColor: '#EC221F',
+        backgroundColor: '#cd5c5c',
         borderRadius: 14,
     },
     easy: {
         width: 133,
         height: 112,
-        backgroundColor: '#34C759',
+        backgroundColor: '#1db954',
         borderRadius: 14,
     },
     btnText: {

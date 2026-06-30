@@ -58,6 +58,7 @@ export default function CreateSet() {
 
           <View style={styles.body}>
             <LabeledInput label={"Set Name:"} style={styles.labeledInput} onChangeText={handleChange} />
+            <Text style={styles.cardCount}>{cards.length} {cards.length === 1 ? "Card" : "Cards"}</Text>
 
             <ScrollView
               style={styles.scrollView}
@@ -77,11 +78,12 @@ export default function CreateSet() {
                 );
               })}
 
-              <View style={{ alignItems: "center" }}>
+              <View style={styles.addButton}>
                 <TouchableOpacity onPress={() => addCard({ front: "", back: "" })}>
                   <Image source={require("../../assets/plus-circle.png")} />
                 </TouchableOpacity>
               </View>
+
             </ScrollView>
           </View>
         </View>
@@ -122,8 +124,17 @@ const styles = StyleSheet.create({
   labeledInput: {
     paddingHorizontal: 30,
   },
+  cardCount: {
+    paddingHorizontal: 30,
+    paddingTop: 6,
+    fontSize: 13,
+    color: '#888',
+  },
   scrollView: {
     marginHorizontal: 20,
     marginTop: 40,
   },
+  addButton: {
+    
+  }
 });

@@ -139,12 +139,12 @@ const styles = StyleSheet.create({
   correctText: {
     fontSize: 18,
     fontWeight: '500',
-    color: '#34c759',
+    color: '#1db954',
   },
   incorrectText: {
     fontSize: 18,
     fontWeight: '500',
-    color: '#ec221f',
+    color: '#cd5c5c',
   },
   arrowRow: {
     alignItems: 'center',
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   btnRepeat: {
     flex: 1,
-    backgroundColor: '#ec221f',
+    backgroundColor: '#cd5c5c',
     paddingVertical: 16,
     borderRadius: 14,
     alignItems: 'center',
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   btnPrimary: {
-    backgroundColor: '#34c759',
+    backgroundColor: '#1db954',
     paddingVertical: 16,
     borderRadius: 14,
     alignItems: 'center',

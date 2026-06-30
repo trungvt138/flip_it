@@ -59,6 +59,7 @@ export default function EditSet({ route }) {
 
           <View style={styles.body}>
             <LabeledInput label={"Set Name:"} style={styles.labeledInput} onChangeText={handleChange} value={text} />
+            <Text style={styles.cardCount}>{cards.length} {cards.length === 1 ? "Card" : "Cards"}</Text>
 
             <ScrollView
               style={styles.scrollView}
@@ -122,6 +123,12 @@ const styles = StyleSheet.create({
   },
   labeledInput: {
     paddingHorizontal: 30,
+  },
+  cardCount: {
+    paddingHorizontal: 30,
+    paddingTop: 6,
+    fontSize: 13,
+    color: '#888',
   },
   scrollView: {
     marginHorizontal: 20,
