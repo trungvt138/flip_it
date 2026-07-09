@@ -78,14 +78,15 @@ export default function CreateSet() {
                 );
               })}
 
-              <View style={styles.addButton}>
-                <TouchableOpacity onPress={() => addCard({ front: "", back: "" })}>
-                  <Image source={require("../../assets/plus-circle.png")} />
-                </TouchableOpacity>
-              </View>
+
 
             </ScrollView>
           </View>
+        </View>
+        <View style={styles.addButton}>
+          <TouchableOpacity onPress={() => addCard({ front: "", back: "" })}>
+            <Image source={require("../../assets/create.png")} style={styles.addIcon} />
+          </TouchableOpacity>
         </View>
 
         <Navbar />
@@ -135,6 +136,20 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   addButton: {
-    
+    position: 'absolute',
+    right: 20,
+    bottom: 95,
+    width: 48,
+    height: 48,
+    borderRadius: 16,
+    backgroundColor: '#9080F7',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15
+  },
+  addIcon: {
+    width: 20,
+    height: 20,
+    tintColor: '#fff',
   }
 });

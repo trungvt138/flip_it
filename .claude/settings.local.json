@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(grep -oE '#[0-9a-fA-F]{3,6}')",
-      "Bash(grep -oE '\"#[0-9a-fA-F]{3,6}\"')",
-      "Bash(grep -roh \"#[0-9a-fA-F]\\\\{3,6\\\\}\" /Users/trungdam/Documents/Learning/Medieninformatik/HCI/Flip_It/src --include=\"*.js\")"
-    ]
-  }
-}

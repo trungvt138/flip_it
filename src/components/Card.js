@@ -1,28 +1,27 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import LabeledInputs from './LabeledInput';
 
 export default function Card(props) {
     return (
         <View style={styles.card}>
-            
+
+            <TouchableOpacity style={styles.deleteButton} onPress={() => props.onDelete(props.index)}>
+                <Ionicons name="close" size={16} color="#fff" />
+            </TouchableOpacity>
+
             <LabeledInputs
-                label={"Front:"}
+                label={"Front"}
                 value={props.front}
                 onChangeText={props.onFrontChange}
-                rightElement={
-                    <TouchableOpacity onPress={() => props.onDelete(props.index)}>
-                        <Image 
-                            source={require('../../assets/minus.png')} 
-                            style={styles.image} 
-                        />
-                    </TouchableOpacity>
-                }
+                textStyle={{justifyContent: 'flex-end'}}
             />
             <LabeledInputs
-                label={"Back:"}
+                label={"Back"}
                 value={props.back}
                 onChangeText={props.onBackChange}
                 style={styles.labeledInputBack}
+                textStyle={{justifyContent: 'flex-end'}}
             />
         </View>
     )
@@ -36,12 +35,21 @@ const styles = StyleSheet.create({
         width: '95%',
         alignSelf: 'center',
         paddingBottom: 19,
-        paddingTop: 10,
+        paddingTop: 20,
         paddingHorizontal: 14,
+        overflow: 'hidden',
     },
-    image: {
-        alignSelf: 'flex-end',
-        marginBottom: 6,
+    deleteButton: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: 26,
+        height: 26,
+        backgroundColor: '#cd5c5c',
+        borderBottomRightRadius: 14,
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1,
     },
     labeledInputBack: {
         marginTop: 15,
