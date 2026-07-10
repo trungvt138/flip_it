@@ -11,34 +11,36 @@ import { useCards } from "../hooks/useCards";
 import { useText } from "../hooks/useText";
 import { useNavigation } from "@react-navigation/native";
 import { useLearningBoxes } from "../hooks/useLearningBoxes";
+import { useSettings } from "../hooks/useSettings";
 
 export default function CreateSet() {
   const { cards, addCard, deleteCard, updateCard } = useCards();
   const { text, handleChange } = useText();
   const navigation = useNavigation();
   const { addLearningBox } = useLearningBoxes();
+  const { t, colors } = useSettings();
   const [discardModalVisible, setDiscardModalVisible] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
 
         <ConfirmModal
           visible={discardModalVisible}
-          title="Discard Set"
-          message="Are you sure you want to discard this new set? This cannot be undone."
-          confirmLabel="Discard"
-          confirmColor="#E53935"
+          title={t.discardSetTitle}
+          message={t.discardSetMessage}
+          confirmLabel={t.discard}
+          confirmColor={colors.danger}
           onConfirm={() => { setDiscardModalVisible(false); navigation.goBack(); }}
           onCancel={() => setDiscardModalVisible(false)}
         />
         <ConfirmModal
           visible={saveModalVisible}
-          title="Save Set"
-          message="Do you want to save this new set?"
-          confirmLabel="Save"
-          confirmColor="#9080F7"
+          title={t.saveSetTitle}
+          message={t.saveSetMessage}
+          confirmLabel={t.save}
+          confirmColor={colors.primary}
           onConfirm={() => { setSaveModalVisible(false); addLearningBox({ name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards }); navigation.navigate("Library"); }}
           onCancel={() => setSaveModalVisible(false)}
         />
@@ -49,7 +51,7 @@ export default function CreateSet() {
             <TouchableOpacity onPress={() => setDiscardModalVisible(true)}>
               <Image source={require("../../assets/trash.png")} />
             </TouchableOpacity>
-            <Text style={styles.screenTitle}>Create New Set</Text>
+            <Text style={[styles.screenTitle, { color: colors.text }]}>{t.createNewSet}</Text>
             <TouchableOpacity onPress={() => setSaveModalVisible(true)}>
               <Image source={require("../../assets/check.png")} />
             </TouchableOpacity>
@@ -57,8 +59,8 @@ export default function CreateSet() {
           <HorizontalRuler />
 
           <View style={styles.body}>
-            <LabeledInput label={"Set Name:"} style={styles.labeledInput} onChangeText={handleChange} />
-            <Text style={styles.cardCount}>{cards.length} {cards.length === 1 ? "Card" : "Cards"}</Text>
+            <LabeledInput label={t.setNameLabel} style={styles.labeledInput} onChangeText={handleChange} />
+            <Text style={[styles.cardCount, { color: colors.textSecondary }]}>{t.cardsCount(cards.length)}</Text>
 
             <ScrollView
               style={styles.scrollView}

@@ -1,20 +1,22 @@
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useSettings } from "../hooks/useSettings";
 
 export default function ConfirmModal({ visible, title, message, confirmLabel, confirmColor, onConfirm, onCancel }) {
+  const { t, colors } = useSettings();
   return (
     <Modal transparent animationType="fade" visible={visible} onRequestClose={onCancel}>
       <View style={styles.overlay}>
-        <View style={styles.dialog}>
-          <View style={styles.header}>
+        <View style={[styles.dialog, { backgroundColor: colors.surface }]}>
+          <View style={[styles.header, { backgroundColor: confirmColor ?? colors.primary }]}>
             <Text style={styles.title}>{title}</Text>
           </View>
-          <Text style={styles.message}>{message}</Text>
-          <View style={styles.actions}>
-            <TouchableOpacity style={styles.cancelButton} onPress={onCancel}>
-              <Text style={styles.cancelText}>Cancel</Text>
+          <Text style={[styles.message, { color: colors.text }]}>{message}</Text>
+          <View style={[styles.actions, { borderTopColor: colors.border }]}>
+            <TouchableOpacity style={[styles.cancelButton, { borderRightColor: colors.border }]} onPress={onCancel}>
+              <Text style={[styles.cancelText, { color: colors.textSecondary }]}>{t.cancel}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.confirmButton, { backgroundColor: confirmColor ?? '#9080F7' }]} onPress={onConfirm}>
-              <Text style={styles.confirmText}>{confirmLabel ?? 'Confirm'}</Text>
+            <TouchableOpacity style={[styles.confirmButton, { backgroundColor: confirmColor ?? colors.primary }]} onPress={onConfirm}>
+              <Text style={styles.confirmText}>{confirmLabel ?? t.save}</Text>
             </TouchableOpacity>
           </View>
         </View>

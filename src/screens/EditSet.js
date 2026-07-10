@@ -10,6 +10,7 @@ import { useCards } from "../hooks/useCards";
 import { useText } from "../hooks/useText";
 import { useNavigation } from "@react-navigation/native";
 import { useLearningBoxes } from "../hooks/useLearningBoxes";
+import { useSettings } from "../hooks/useSettings";
 
 export default function EditSet({ route }) {
   const { cards: initialCards, name: initialName } = route.params;
@@ -17,27 +18,28 @@ export default function EditSet({ route }) {
   const { text, handleChange } = useText(initialName);
   const navigation = useNavigation();
   const { updateLearningBox, deleteLearningBox } = useLearningBoxes();
+  const { t, colors } = useSettings();
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
         <ConfirmModal
           visible={deleteModalVisible}
-          title="Delete Set"
-          message={`Are you sure you want to delete "${initialName}"? This cannot be undone.`}
-          confirmLabel="Delete"
-          confirmColor="#E53935"
+          title={t.deleteSetTitle}
+          message={t.deleteSetMessage(initialName)}
+          confirmLabel={t.delete}
+          confirmColor={colors.danger}
           onConfirm={() => { setDeleteModalVisible(false); deleteLearningBox(route.params.index); navigation.goBack(); }}
           onCancel={() => setDeleteModalVisible(false)}
         />
         <ConfirmModal
           visible={saveModalVisible}
-          title="Save Changes"
-          message="Do you want to save the changes to this set?"
-          confirmLabel="Save"
-          confirmColor="#9080F7"
+          title={t.saveChangesTitle}
+          message={t.saveChangesMessage}
+          confirmLabel={t.save}
+          confirmColor={colors.primary}
           onConfirm={() => { setSaveModalVisible(false); updateLearningBox(route.params.index, { name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards }); navigation.navigate("Library"); }}
           onCancel={() => setSaveModalVisible(false)}
         />
@@ -48,7 +50,7 @@ export default function EditSet({ route }) {
               <Image source={require("../../assets/trash.png")} />
             </TouchableOpacity>
 
-            <Text style={styles.screenTitle}>Edit Set</Text>
+            <Text style={[styles.screenTitle, { color: colors.text }]}>{t.editSet}</Text>
 
             <TouchableOpacity onPress={() => setSaveModalVisible(true)}>
               <Image source={require("../../assets/check.png")} />
@@ -58,8 +60,8 @@ export default function EditSet({ route }) {
           <HorizontalRuler />
 
           <View style={styles.body}>
-            <LabeledInput label={"Set Name:"} style={styles.labeledInput} onChangeText={handleChange} value={text} />
-            <Text style={styles.cardCount}>{cards.length} {cards.length === 1 ? "Card" : "Cards"}</Text>
+            <LabeledInput label={t.setNameLabel} style={styles.labeledInput} onChangeText={handleChange} value={text} />
+            <Text style={[styles.cardCount, { color: colors.textSecondary }]}>{t.cardsCount(cards.length)}</Text>
 
             <ScrollView
               style={styles.scrollView}

@@ -3,19 +3,21 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import ConfirmModal from "./ConfirmModal";
+import { useSettings } from "../hooks/useSettings";
 
 export default function LearningBox(props) {
   const navigation = useNavigation();
+  const { t, colors } = useSettings();
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
   return (
-    <View style={styles.learningBox}>
+    <View style={[styles.learningBox, { backgroundColor: colors.boxBackground }]}>
       <ConfirmModal
         visible={deleteModalVisible}
-        title="Delete Set"
-        message={`Are you sure you want to delete "${props.name}"?`}
-        confirmLabel="Delete"
-        confirmColor="#E53935"
+        title={t.deleteSetTitle}
+        message={t.deleteSetMessage(props.name)}
+        confirmLabel={t.delete}
+        confirmColor={colors.danger}
         onConfirm={() => { setDeleteModalVisible(false); props.onDelete(props.id); }}
         onCancel={() => setDeleteModalVisible(false)}
       />
@@ -32,12 +34,12 @@ export default function LearningBox(props) {
         </View>
       </View>
 
-      <Text style={styles.karteiName}> {props.name} </Text>
-      <Text style={styles.cardName}> {props.cardCount} Cards </Text>
+      <Text style={[styles.karteiName, { color: colors.text }]}> {props.name} </Text>
+      <Text style={[styles.cardName, { color: colors.textSecondary }]}>{t.cardsCount(props.cardCount)}</Text>
 
       <View style={styles.actions}>
         <TouchableOpacity style={styles.practiceButton} onPress={() => { props.onOpen?.(); navigation.navigate('Practice', { cards: props.cards, name: props.name }); }}>
-          <Text style={styles.practiceText}>Practice</Text>
+          <Text style={styles.practiceText}>{t.practice}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -48,7 +50,6 @@ const styles = StyleSheet.create({
   learningBox: {
     width: 300,
     borderRadius: 14,
-    backgroundColor: '#ede9fe',
     overflow: 'hidden',
   },
 

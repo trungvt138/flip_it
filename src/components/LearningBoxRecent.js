@@ -1,12 +1,14 @@
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import { useSettings } from '../hooks/useSettings';
 
 export default function LearningBoxRecent(props) {
     const navigation = useNavigation();
+    const { t, colors } = useSettings();
     return (
-        <TouchableOpacity style={styles.learningBox} onPress={() => navigation.navigate('Practice', { cards: props.cards, name: props.name })}>
+        <TouchableOpacity style={[styles.learningBox, { backgroundColor: colors.primary }]} onPress={() => navigation.navigate('Practice', { cards: props.cards, name: props.name })}>
             <Text style={styles.karteiName}> {props.name} </Text>
-            <Text style={styles.cardCount}> {props.cardCount} Cards </Text>
+            <Text style={styles.cardCount}>{t.cardsCount(props.cardCount)}</Text>
         </TouchableOpacity>
     );
 }

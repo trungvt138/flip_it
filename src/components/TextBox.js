@@ -1,14 +1,16 @@
 import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSettings } from '../hooks/useSettings';
 
 export default function TextBox({ placeholder, value, onChangeText, onFilterPress, filterActive, style }) {
+  const { colors } = useSettings();
   return (
-    <View style={[styles.wrapper, style]}>
-      {onFilterPress && <Ionicons name="search-outline" size={16} color="#888" style={styles.searchIcon} />}
+    <View style={[styles.wrapper, { backgroundColor: colors.card }, style]}>
+      {onFilterPress && <Ionicons name="search-outline" size={16} color={colors.textSecondary} style={styles.searchIcon} />}
       <TextInput
         placeholder={placeholder}
-        placeholderTextColor="#888"
-        style={styles.input}
+        placeholderTextColor={colors.textSecondary}
+        style={[styles.input, { color: colors.text }]}
         value={value}
         onChangeText={onChangeText}
       />
@@ -17,7 +19,7 @@ export default function TextBox({ placeholder, value, onChangeText, onFilterPres
           <Ionicons
             name={filterActive ? 'funnel' : 'funnel-outline'}
             size={18}
-            color={filterActive ? '#9080F7' : '#888'}
+            color={filterActive ? colors.primary : colors.textSecondary}
           />
         </TouchableOpacity>
       )}
@@ -31,7 +33,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'stretch',
     height: 36,
-    backgroundColor: '#D9D9D9',
     borderRadius: 8,
     paddingHorizontal: 10,
   },
@@ -42,7 +43,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     fontSize: 14,
-    color: '#333',
   },
   filterButton: {
     paddingLeft: 8,

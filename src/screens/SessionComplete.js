@@ -2,38 +2,40 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image, Platform, 
 import { useNavigation } from '@react-navigation/native';
 // Wir importieren die WordCard aus deinem components-Ordner
 import WordCard from '../components/WordCard';
+import { useSettings } from '../hooks/useSettings';
 
 export default function SessionComplete({ route }) {
   const navigation = useNavigation();
+  const { t, colors } = useSettings();
   const { easy, repeat, repeatCards, cards, name } = route.params || {};
 
   return (
     // SafeAreaView durch normale View mit manuellem Top-Padding ersetzt
-    <View style={styles.safeArea}>
+    <View style={[styles.safeArea, { backgroundColor: colors.background }]}>
       <ScrollView contentContainerStyle={styles.container}>
-        
+
         {/* Header: Figma-Haken (jetzt als Image) & Titel */}
         <View style={styles.header}>
-          <View style={styles.checkmarkCircle}>
+          <View style={[styles.checkmarkCircle, { borderColor: colors.primary }]}>
             {/* Hier wird dein Figma Asset sicher geladen ohne abzustürzen */}
-            <Image 
-              source={require('../../assets/check-circle.svg.png')} 
+            <Image
+              source={require('../../assets/check-circle.svg.png')}
               style={styles.checkmarkImage}
               resizeMode="contain"
             />
           </View>
-          <Text style={styles.sessionCompleteText}>Session complete!</Text>
+          <Text style={[styles.sessionCompleteText, { color: colors.text }]}>{t.sessionComplete}</Text>
         </View>
 
         {/* Graue Statistik-Box */}
-        <View style={styles.summaryContainer}>
+        <View style={[styles.summaryContainer, { backgroundColor: colors.cardAlt }]}>
           <View style={styles.scoreRow}>
-            <Text style={styles.correctText}>Correct answers:</Text>
+            <Text style={styles.correctText}>{t.correctAnswers}</Text>
             <Text style={styles.correctText}>{easy}</Text>
           </View>
-          
+
           <View style={[styles.scoreRow, { marginBottom: 20 }]}>
-            <Text style={styles.incorrectText}>Incorrect answers:</Text>
+            <Text style={styles.incorrectText}>{t.incorrectAnswers}</Text>
             <Text style={styles.incorrectText}>{repeat}</Text>
           </View>
 
@@ -68,17 +70,17 @@ export default function SessionComplete({ route }) {
         {/* Action-Buttons unten */}
         <View style={styles.buttonActionArea}>
           <View style={styles.splitButtons}>
-            <TouchableOpacity style={styles.btnRepeat} onPress={() => navigation.replace('Practice', { cards: repeatCards, name: name })}>
-              <Text style={styles.btnText}>Repeat incorrect</Text>
+            <TouchableOpacity style={[styles.btnRepeat, { backgroundColor: colors.danger }]} onPress={() => navigation.replace('Practice', { cards: repeatCards, name: name })}>
+              <Text style={styles.btnText}>{t.repeatIncorrect}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.btnStartOver} onPress={() => navigation.replace('Practice', { cards: cards, name: name })}>
-              <Text style={styles.btnText}>Start over</Text>
+            <TouchableOpacity style={[styles.btnStartOver, { backgroundColor: colors.primary }]} onPress={() => navigation.replace('Practice', { cards: cards, name: name })}>
+              <Text style={styles.btnText}>{t.startOver}</Text>
             </TouchableOpacity>
           </View>
-          
+
           <TouchableOpacity style={styles.btnPrimary} onPress={() => navigation.navigate('Home')}>
-            <Text style={styles.btnTextMain}>Done</Text>
+            <Text style={styles.btnTextMain}>{t.done}</Text>
           </TouchableOpacity>
         </View>
 
@@ -109,6 +111,7 @@ const styles = StyleSheet.create({
     borderRadius: 55,
     borderWidth: 4,
     borderColor: '#a78bfa',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,

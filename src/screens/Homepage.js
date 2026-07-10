@@ -1,48 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Image } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import NavBar from '../components/Navbar';
 import HorizontalRuler from '../components/HorizontalRuler';
-import TextBox from '../components/TextBox';
-import BoxNew from '../components/BoxNew';
+import DailyGoalCard from '../components/DailyGoalCard';
 import { useNavigation } from '@react-navigation/native';
 import { useLearningBoxes } from '../hooks/useLearningBoxes';
+import { useSettings } from '../hooks/useSettings';
 import LearningBoxRecent from '../components/LearningBoxRecent';
 
 export default function Homepage() {
   const navigation = useNavigation();
-  const { learningBoxes, getLastLearningBox } = useLearningBoxes();
-  const lastBox = getLastLearningBox();
+  const { learningBoxes } = useLearningBoxes();
+  const { t, colors } = useSettings();
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.content}>
-          <TextBox style={styles.textBox} placeholder="Search..." />
+          <View style={styles.goalHeader}>
+            <DailyGoalCard />
+          </View>
           <HorizontalRuler />
           {learningBoxes.length === 0 ? (
             <View style={styles.plusCircleIcon}>
               <TouchableOpacity onPress={() => navigation.navigate("Create")}>
                 <Image source={require("../../assets/plus-circle.png")} />
               </TouchableOpacity>
-              <Text>
-              Tap to create your first card set
+              <Text style={{ color: colors.text }}>
+              {t.tapToCreateFirstSet}
               </Text>
             </View>
           ): (
             <View style={{ width: '100%', alignItems: 'center'}}>
-              <View style={{ width: '100%', alignItems: 'center', padding: 30 , paddingBottom: 15}}>
-                <BoxNew
-                  name={lastBox.name}
-                  cardCount={lastBox.cardCount}
-                  cards={lastBox.cards}
-                  index={learningBoxes.length - 1}
-                />
-              </View>
-              <HorizontalRuler />
-              <Text style={{ width: '100%', paddingLeft: 30, marginTop: 12, marginBottom: 20}}>
-                Your latest card sets:
+              <Text style={{ width: '100%', paddingLeft: 30, marginTop: 20, marginBottom: 20, color: colors.text }}>
+                {t.yourLatestSets}
               </Text>
               <View style={{ width: '100%', alignItems: 'center', paddingBottom: 30, gap: 25}}>
                 {learningBoxes.slice().reverse().slice(-4).map((box, index) => (
@@ -58,7 +51,7 @@ export default function Homepage() {
           )}
 
         </View>
-        
+
         <NavBar />
       </SafeAreaView>
     </SafeAreaProvider>
@@ -68,7 +61,6 @@ export default function Homepage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     paddingTop: 8,
     alignItems: 'center'
   },
@@ -81,7 +73,9 @@ const styles = StyleSheet.create({
     marginTop: 212,
     alignItems: 'center'
   },
-  textBox: {
-    marginHorizontal: 30
-  }
+  goalHeader: {
+    width: '100%',
+    paddingHorizontal: 20,
+    paddingBottom: 15,
+  },
 });

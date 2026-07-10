@@ -1,0 +1,3 @@
+Hãy làm theo hướng dẫn sau:
+- Nguời dùng có thể set thời gian học trong 1 ngày làm goal. Thiết kế lại Homepage.js. xoá search box và New Card trên đầu đi thay vào đó là thanh progress để người dùng biết mình cần học thêm bao lâu để hoàn thành goal trong ngày.
+- thêm 1 mục ở dưới navbar đó là user. trong đó người dùng có thể thay đổi light/dark theme. hãy tạo thêm dark theme cho app. ngoài ra người dùng có thể đổi ngôn ngữ app sang tiếng anh hoặc đức. thêm vào đó người dùng có thể thay đổi. layout nên đồng bộ và phù hợp với ngôn ngữ thiết kế của app đang có.

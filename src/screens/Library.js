@@ -7,20 +7,22 @@ import HorizontalRuler from "../components/HorizontalRuler";
 import Navbar from "../components/Navbar";
 import LearningBox from "../components/LearningBox";
 import { useLearningBoxes } from "../hooks/useLearningBoxes";
-
-const SORT_OPTIONS = [
-  { id: 'newest', label: 'Newest first',     icon: 'arrow-down-outline' },
-  { id: 'oldest', label: 'Oldest first',     icon: 'arrow-up-outline'   },
-  { id: 'az',     label: 'A → Z',            icon: 'text-outline'       },
-  { id: 'za',     label: 'Z → A',            icon: 'text-outline'       },
-  { id: 'recent', label: 'Recently opened',  icon: 'eye-outline'        },
-];
+import { useSettings } from "../hooks/useSettings";
 
 export default function Library() {
   const { learningBoxes, deleteLearningBox, markOpened } = useLearningBoxes();
+  const { t, colors } = useSettings();
   const [query, setQuery] = useState('');
   const [sortBy, setSortBy] = useState('newest');
   const [sortOpen, setSortOpen] = useState(false);
+
+  const SORT_OPTIONS = [
+    { id: 'newest', label: t.sortNewest,  icon: 'arrow-down-outline' },
+    { id: 'oldest', label: t.sortOldest,  icon: 'arrow-up-outline'   },
+    { id: 'az',     label: t.sortAZ,      icon: 'text-outline'       },
+    { id: 'za',     label: t.sortZA,      icon: 'text-outline'       },
+    { id: 'recent', label: t.sortRecent,  icon: 'eye-outline'        },
+  ];
 
   const panelAnim = useRef(new Animated.Value(0)).current;
 
@@ -61,13 +63,13 @@ export default function Library() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.content}>
 
           <View style={styles.searchRow}>
             <TextBox
               style={styles.textBox}
-              placeholder="Search..."
+              placeholder={t.searchPlaceholder}
               value={query}
               onChangeText={setQuery}
               onFilterPress={() => setSortOpen(o => !o)}
@@ -97,7 +99,7 @@ export default function Library() {
 
           <HorizontalRuler />
 
-          <Text style={styles.sortText}>{activeLabel}</Text>
+          <Text style={[styles.sortText, { color: colors.textSecondary }]}>{activeLabel}</Text>
 
           <ScrollView
             style={{ width: "100%" }}
@@ -105,7 +107,7 @@ export default function Library() {
             keyboardShouldPersistTaps="handled"
           >
             {displayedBoxes.length === 0 ? (
-              <Text style={styles.emptyText}>No sets found</Text>
+              <Text style={[styles.emptyText, { color: colors.textSecondary }]}>{t.noSetsFound}</Text>
             ) : (
               displayedBoxes.map(box => (
                 <LearningBox

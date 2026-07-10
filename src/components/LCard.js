@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, Animated } from "react-native";
 import { useLCardFlip } from "../hooks/useLCardFlip";
+import { useSettings } from "../hooks/useSettings";
 
 const LCard = ({front, back, onEasy, onRepeat}) => {
     const { flipped, flip, flipToFrontStyle, flipToBackStyle, resetFlip } = useLCardFlip();
+    const { colors, t } = useSettings();
 
     useEffect(() => {
         resetFlip();
@@ -11,16 +13,16 @@ const LCard = ({front, back, onEasy, onRepeat}) => {
 
     return (
         <View>
-            <Animated.View style={[styles.card, styles.front, flipToFrontStyle]}>
+            <Animated.View style={[styles.card, { backgroundColor: colors.card }, flipToFrontStyle]}>
                 <View></View>
-                <Text style={styles.text}>{front}</Text>
+                <Text style={[styles.text, { color: colors.text }]}>{front}</Text>
                 <TouchableOpacity style={styles.icon} onPress={flip}>
                     <Image source={require('../../assets/front-flip.png')}></Image>
                 </TouchableOpacity>
             </Animated.View>
             <Animated.View style={[styles.card, styles.back, flipToBackStyle]}>
                 <View></View>
-                <Text style={styles.text}>{back}</Text>
+                <Text style={[styles.text, { color: '#fff' }]}>{back}</Text>
                 <TouchableOpacity style={styles.icon} onPress={flip}>
                     <Image source={require('../../assets/back-flip.png')}></Image>
                 </TouchableOpacity>
@@ -29,14 +31,14 @@ const LCard = ({front, back, onEasy, onRepeat}) => {
             {flipped && (
                 <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.repeat} onPress={onRepeat}>
-                    <Text style={styles.btnText}>Repeat</Text>
+                    <Text style={styles.btnText}>{t.repeat}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.easy} onPress={onEasy}>
-                    <Text style={styles.btnText}>Easy</Text>
+                    <Text style={styles.btnText}>{t.easy}</Text>
                 </TouchableOpacity>
             </View>
             )}
-            
+
         </View>
     )
 }

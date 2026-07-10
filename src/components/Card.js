@@ -1,23 +1,25 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import LabeledInputs from './LabeledInput';
+import { useSettings } from '../hooks/useSettings';
 
 export default function Card(props) {
+    const { t, colors } = useSettings();
     return (
-        <View style={styles.card}>
+        <View style={[styles.card, { borderColor: colors.primary }]}>
 
             <TouchableOpacity style={styles.deleteButton} onPress={() => props.onDelete(props.index)}>
                 <Ionicons name="close" size={16} color="#fff" />
             </TouchableOpacity>
 
             <LabeledInputs
-                label={"Front"}
+                label={t.front}
                 value={props.front}
                 onChangeText={props.onFrontChange}
                 textStyle={{justifyContent: 'flex-end'}}
             />
             <LabeledInputs
-                label={"Back"}
+                label={t.back}
                 value={props.back}
                 onChangeText={props.onBackChange}
                 style={styles.labeledInputBack}

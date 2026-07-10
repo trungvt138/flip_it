@@ -1,14 +1,16 @@
 import { StyleSheet, Text, View } from "react-native";
+import { useSettings } from "../hooks/useSettings";
 
 export default function ProgressBar({ progress, cardCount}) {
+    const { colors } = useSettings();
     return (
         <View style={styles.container}>
             <View style={styles.progressBar}>
-                <View style={{ flex: progress, backgroundColor: '#9080F7', borderTopLeftRadius: 20, borderBottomLeftRadius: 20}}></View>
-                <View style={{ flex: cardCount - progress, backgroundColor: '#D9D9D9', borderTopRightRadius: 20, borderBottomRightRadius: 20}}></View>
-                
+                <View style={{ flex: progress, backgroundColor: colors.primary, borderTopLeftRadius: 20, borderBottomLeftRadius: 20}}></View>
+                <View style={{ flex: cardCount - progress, backgroundColor: colors.card, borderTopRightRadius: 20, borderBottomRightRadius: 20}}></View>
+
             </View>
-            <Text style={{alignSelf: 'center', marginTop: 10}}>{progress}/{cardCount}</Text>
+            <Text style={{alignSelf: 'center', marginTop: 10, color: colors.text}}>{progress}/{cardCount}</Text>
         </View>
     )
 }

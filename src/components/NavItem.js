@@ -1,8 +1,10 @@
 import { StyleSheet, Text, TouchableOpacity, Animated } from 'react-native';
 import { useRef, useEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { useSettings } from '../hooks/useSettings';
 
 export default function NavItem({ label, iconName, isActive, onPress }) {
+  const { colors } = useSettings();
   const anim = useRef(new Animated.Value(isActive ? 1 : 0)).current;
 
   useEffect(() => {
@@ -20,15 +22,15 @@ export default function NavItem({ label, iconName, isActive, onPress }) {
 
   return (
     <TouchableOpacity style={styles.navItem} onPress={onPress} activeOpacity={0.8}>
-      <Animated.View style={[styles.pill, { opacity: pillOpacity, transform: [{ scaleX: pillScaleX }] }]} />
+      <Animated.View style={[styles.pill, { backgroundColor: colors.primaryLight, opacity: pillOpacity, transform: [{ scaleX: pillScaleX }] }]} />
       <Animated.View style={{ transform: [{ scale: iconScale }] }}>
         <Ionicons
           name={isActive ? iconName : `${iconName}-outline`}
           size={24}
-          color={isActive ? '#9080F7' : '#888'}
+          color={isActive ? colors.primary : colors.textSecondary}
         />
       </Animated.View>
-      <Text style={[styles.label, isActive && styles.activeLabel]}>{label}</Text>
+      <Text style={[styles.label, { color: colors.textSecondary }, isActive && { color: colors.primary, fontWeight: '600' }]}>{label}</Text>
     </TouchableOpacity>
   );
 }

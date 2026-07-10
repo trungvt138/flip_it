@@ -7,13 +7,16 @@ import Practice from "../screens/Practice";
 import Library from "../screens/Library";
 import SessionComplete from "../screens/SessionComplete";
 import { LearningBoxesProvider } from '../hooks/useLearningBoxes';
+import { AppSettingsProvider } from '../hooks/useSettings';
 import EditSet from "../screens/EditSet";
+import User from "../screens/User";
 
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
   return (
+    <AppSettingsProvider>
     <LearningBoxesProvider>
     <NavigationContainer>
       <Stack.Navigator
@@ -26,8 +29,10 @@ export default function AppNavigator() {
         <Stack.Screen name="Library" component={Library}></Stack.Screen>
         <Stack.Screen name="SessionComplete" component={SessionComplete}></Stack.Screen>
         <Stack.Screen name="EditSet" component={EditSet}></Stack.Screen>
+        <Stack.Screen name="User" component={User}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
     </LearningBoxesProvider>
+    </AppSettingsProvider>
   );
 }

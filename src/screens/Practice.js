@@ -5,17 +5,20 @@ import LCard from "../components/LCard";
 import { useNavigation } from "@react-navigation/native";
 import useProgressBar from "../hooks/useProgressBar";
 import { usePracticeSession } from "../hooks/usePracticeSession";
+import { useSettings } from "../hooks/useSettings";
 
 export default function Practice({ route }) {
   const navigation = useNavigation();
   const { progress, incrementProgress } = useProgressBar();
   const { easy, repeat, repeatCards, markEasy, markRepeat } = usePracticeSession();
+  const { colors, recordCardStudied } = useSettings();
   const { cards = [], name = "" } = route.params || {};
   const currentCard = cards[progress] || {};
 
   function handleEasy() {
     const newEasy = easy + 1;
     markEasy();
+    recordCardStudied();
     if (progress < cards.length - 1) {
       incrementProgress();
     } else {
@@ -27,6 +30,7 @@ export default function Practice({ route }) {
     const newRepeat = repeat + 1;
     const newRepeatCards = [...repeatCards, currentCard];
     markRepeat(currentCard);
+    recordCardStudied();
     if (progress < cards.length - 1) {
       incrementProgress();
     } else {
@@ -36,9 +40,9 @@ export default function Practice({ route }) {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
         <View style={styles.head}>
-          <Text style={styles.screenTitle}>{name}</Text>
+          <Text style={[styles.screenTitle, { color: colors.text }]}>{name}</Text>
           <TouchableOpacity
             style={styles.closeButton}
             onPress={() => navigation.goBack()}
@@ -58,7 +62,6 @@ export default function Practice({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     paddingTop: 8,
     alignItems: "center",
   },
