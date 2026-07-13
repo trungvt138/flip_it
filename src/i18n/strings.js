@@ -35,6 +35,9 @@ export const strings = {
     saveChangesTitle: 'Save Changes',
     saveChangesMessage: 'Do you want to save the changes to this set?',
     cancel: 'Cancel',
+    ok: 'OK',
+    emptyFieldsTitle: 'Missing information',
+    emptyFieldsMessage: 'Please fill in the set name and every Front/Back field before saving.',
 
     sortNewest: 'Newest first',
     sortOldest: 'Oldest first',
@@ -100,6 +103,9 @@ export const strings = {
     saveChangesTitle: 'Änderungen speichern',
     saveChangesMessage: 'Möchtest du die Änderungen an diesem Set speichern?',
     cancel: 'Abbrechen',
+    ok: 'OK',
+    emptyFieldsTitle: 'Angaben fehlen',
+    emptyFieldsMessage: 'Bitte fülle den Set-Namen und jedes Vorderseite/Rückseite-Feld aus, bevor du speicherst.',
 
     sortNewest: 'Neueste zuerst',
     sortOldest: 'Älteste zuerst',

@@ -20,6 +20,7 @@ export default function CreateSet() {
   const { t, colors } = useSettings();
   const [discardModalVisible, setDiscardModalVisible] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
+  const [emptyFieldsModalVisible, setEmptyFieldsModalVisible] = useState(false);
   const REST_BOTTOM = 95;
   const buttonBottom = useRef(new Animated.Value(REST_BOTTOM)).current;
   const scrollViewRef = useRef(null);
@@ -28,6 +29,15 @@ export default function CreateSet() {
   function handleAddCard() {
     addCard({ front: "", back: "" });
     pendingScrollToEnd.current = true;
+  }
+
+  function handleSavePress() {
+    const hasEmptyFields = !text.trim() || cards.some((c) => !c.front.trim() || !c.back.trim());
+    if (hasEmptyFields) {
+      setEmptyFieldsModalVisible(true);
+    } else {
+      setSaveModalVisible(true);
+    }
   }
 
   useEffect(() => {
@@ -77,6 +87,15 @@ export default function CreateSet() {
           onConfirm={() => { setSaveModalVisible(false); addLearningBox({ name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards }); navigation.navigate('Main', { screen: 'Library' }); }}
           onCancel={() => setSaveModalVisible(false)}
         />
+        <ConfirmModal
+          visible={emptyFieldsModalVisible}
+          title={t.emptyFieldsTitle}
+          message={t.emptyFieldsMessage}
+          confirmLabel={t.ok}
+          confirmColor={colors.danger}
+          singleButton
+          onConfirm={() => setEmptyFieldsModalVisible(false)}
+        />
 
         <View style={styles.content}>
 
@@ -85,7 +104,7 @@ export default function CreateSet() {
               <Image source={require("../../assets/trash.png")} />
             </TouchableOpacity>
             <Text style={[styles.screenTitle, { color: colors.text }]}>{t.createNewSet}</Text>
-            <TouchableOpacity onPress={() => setSaveModalVisible(true)}>
+            <TouchableOpacity onPress={handleSavePress}>
               <Image source={require("../../assets/check.png")} />
             </TouchableOpacity>
           </View>

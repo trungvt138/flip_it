@@ -21,12 +21,22 @@ export default function EditSet({ route }) {
   const { t, colors } = useSettings();
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
+  const [emptyFieldsModalVisible, setEmptyFieldsModalVisible] = useState(false);
   const scrollViewRef = useRef(null);
   const pendingScrollToEnd = useRef(false);
 
   function handleAddCard() {
     addCard({ front: "", back: "" });
     pendingScrollToEnd.current = true;
+  }
+
+  function handleSavePress() {
+    const hasEmptyFields = !text.trim() || cards.some((c) => !c.front.trim() || !c.back.trim());
+    if (hasEmptyFields) {
+      setEmptyFieldsModalVisible(true);
+    } else {
+      setSaveModalVisible(true);
+    }
   }
 
   return (
@@ -50,6 +60,15 @@ export default function EditSet({ route }) {
           onConfirm={() => { setSaveModalVisible(false); updateLearningBox(route.params.index, { name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards }); navigation.navigate('Main', { screen: 'Library' }); }}
           onCancel={() => setSaveModalVisible(false)}
         />
+        <ConfirmModal
+          visible={emptyFieldsModalVisible}
+          title={t.emptyFieldsTitle}
+          message={t.emptyFieldsMessage}
+          confirmLabel={t.ok}
+          confirmColor={colors.danger}
+          singleButton
+          onConfirm={() => setEmptyFieldsModalVisible(false)}
+        />
         <View style={styles.content}>
           <View style={styles.head}>
 
@@ -59,7 +78,7 @@ export default function EditSet({ route }) {
 
             <Text style={[styles.screenTitle, { color: colors.text }]}>{t.editSet}</Text>
 
-            <TouchableOpacity onPress={() => setSaveModalVisible(true)}>
+            <TouchableOpacity onPress={handleSavePress}>
               <Image source={require("../../assets/check.png")} />
             </TouchableOpacity>
 
