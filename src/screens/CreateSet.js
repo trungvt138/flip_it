@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Image, Text, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
-import { useState } from "react";
+import { StyleSheet, Image, Text, View, ScrollView, TextInput, TouchableOpacity, Animated, Keyboard, Platform } from "react-native";
+import { useState, useEffect, useRef } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "../components/Navbar";
 import HorizontalRuler from "../components/HorizontalRuler";
@@ -21,6 +21,40 @@ export default function CreateSet() {
   const { t, colors } = useSettings();
   const [discardModalVisible, setDiscardModalVisible] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
+  const REST_BOTTOM = 95;
+  const buttonBottom = useRef(new Animated.Value(REST_BOTTOM)).current;
+  const scrollViewRef = useRef(null);
+  const pendingScrollToEnd = useRef(false);
+
+  function handleAddCard() {
+    addCard({ front: "", back: "" });
+    pendingScrollToEnd.current = true;
+  }
+
+  useEffect(() => {
+    const showEvent = Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
+    const hideEvent = Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide";
+
+    const showSub = Keyboard.addListener(showEvent, (e) => {
+      Animated.timing(buttonBottom, {
+        toValue: e.endCoordinates.height + 12,
+        duration: Platform.OS === "ios" ? e.duration || 250 : 200,
+        useNativeDriver: false,
+      }).start();
+    });
+    const hideSub = Keyboard.addListener(hideEvent, (e) => {
+      Animated.timing(buttonBottom, {
+        toValue: REST_BOTTOM,
+        duration: Platform.OS === "ios" ? e.duration || 250 : 200,
+        useNativeDriver: false,
+      }).start();
+    });
+
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
 
   return (
     <SafeAreaProvider>
@@ -63,8 +97,15 @@ export default function CreateSet() {
             <Text style={[styles.cardCount, { color: colors.textSecondary }]}>{t.cardsCount(cards.length)}</Text>
 
             <ScrollView
+              ref={scrollViewRef}
               style={styles.scrollView}
               contentContainerStyle={{ gap: 40 }}
+              onContentSizeChange={() => {
+                if (pendingScrollToEnd.current) {
+                  pendingScrollToEnd.current = false;
+                  scrollViewRef.current?.scrollToEnd({ animated: true });
+                }
+              }}
             >
               {cards.map((card, index) => {
                 return (
@@ -85,11 +126,11 @@ export default function CreateSet() {
             </ScrollView>
           </View>
         </View>
-        <View style={styles.addButton}>
-          <TouchableOpacity onPress={() => addCard({ front: "", back: "" })}>
+        <Animated.View style={[styles.addButton, { bottom: buttonBottom }]}>
+          <TouchableOpacity onPress={handleAddCard}>
             <Image source={require("../../assets/create.png")} style={styles.addIcon} />
           </TouchableOpacity>
-        </View>
+        </Animated.View>
 
         <Navbar />
       </SafeAreaView>
@@ -140,7 +181,6 @@ const styles = StyleSheet.create({
   addButton: {
     position: 'absolute',
     right: 20,
-    bottom: 95,
     width: 48,
     height: 48,
     borderRadius: 16,

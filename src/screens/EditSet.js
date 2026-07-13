@@ -1,5 +1,5 @@
 import { StyleSheet, Image, Text, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "../components/Navbar";
 import HorizontalRuler from "../components/HorizontalRuler";
@@ -21,6 +21,13 @@ export default function EditSet({ route }) {
   const { t, colors } = useSettings();
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [saveModalVisible, setSaveModalVisible] = useState(false);
+  const scrollViewRef = useRef(null);
+  const pendingScrollToEnd = useRef(false);
+
+  function handleAddCard() {
+    addCard({ front: "", back: "" });
+    pendingScrollToEnd.current = true;
+  }
 
   return (
     <SafeAreaProvider>
@@ -64,8 +71,15 @@ export default function EditSet({ route }) {
             <Text style={[styles.cardCount, { color: colors.textSecondary }]}>{t.cardsCount(cards.length)}</Text>
 
             <ScrollView
+              ref={scrollViewRef}
               style={styles.scrollView}
               contentContainerStyle={{ gap: 40 }}
+              onContentSizeChange={() => {
+                if (pendingScrollToEnd.current) {
+                  pendingScrollToEnd.current = false;
+                  scrollViewRef.current?.scrollToEnd({ animated: true });
+                }
+              }}
             >
               {cards.map((card, index) => {
                 return (
@@ -82,7 +96,7 @@ export default function EditSet({ route }) {
               })}
 
               <View style={{ alignItems: "center" }}>
-                <TouchableOpacity onPress={() => addCard({ front: "", back: "" })}>
+                <TouchableOpacity onPress={handleAddCard}>
                   <Image source={require("../../assets/plus-circle.png")} />
                 </TouchableOpacity>
               </View>
