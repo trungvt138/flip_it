@@ -79,7 +79,7 @@ export default function SessionComplete({ route }) {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={styles.btnPrimary} onPress={() => navigation.navigate('Home')}>
+          <TouchableOpacity style={styles.btnPrimary} onPress={() => navigation.navigate('Main', { screen: 'Home' })}>
             <Text style={styles.btnTextMain}>{t.done}</Text>
           </TouchableOpacity>
         </View>

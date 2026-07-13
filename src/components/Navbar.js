@@ -23,7 +23,7 @@ export default function Navbar() {
                     label={item.label}
                     iconName={item.iconName}
                     isActive={route.name === item.route}
-                    onPress={() => navigation.navigate(item.route)}
+                    onPress={() => navigation.navigate('Main', { screen: item.route })}
                 />
             ))}
         </View>

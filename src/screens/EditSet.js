@@ -40,7 +40,7 @@ export default function EditSet({ route }) {
           message={t.saveChangesMessage}
           confirmLabel={t.save}
           confirmColor={colors.primary}
-          onConfirm={() => { setSaveModalVisible(false); updateLearningBox(route.params.index, { name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards }); navigation.navigate("Library"); }}
+          onConfirm={() => { setSaveModalVisible(false); updateLearningBox(route.params.index, { name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards }); navigation.navigate('Main', { screen: 'Library' }); }}
           onCancel={() => setSaveModalVisible(false)}
         />
         <View style={styles.content}>
