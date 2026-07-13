@@ -75,7 +75,7 @@ export default function CreateSet() {
           message={t.saveSetMessage}
           confirmLabel={t.save}
           confirmColor={colors.primary}
-          onConfirm={() => { setSaveModalVisible(false); addLearningBox({ name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards }); navigation.navigate("Library"); }}
+          onConfirm={() => { setSaveModalVisible(false); addLearningBox({ name: text, date: new Date().toLocaleDateString('de-DE'), cardCount: cards.length, cards }); navigation.navigate('Main', { screen: 'Library' }); }}
           onCancel={() => setSaveModalVisible(false)}
         />
 
