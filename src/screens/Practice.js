@@ -6,12 +6,14 @@ import { useNavigation } from "@react-navigation/native";
 import useProgressBar from "../hooks/useProgressBar";
 import { usePracticeSession } from "../hooks/usePracticeSession";
 import { useSettings } from "../hooks/useSettings";
+import { useGoal } from "../hooks/useGoal";
 
 export default function Practice({ route }) {
   const navigation = useNavigation();
   const { progress, incrementProgress } = useProgressBar();
   const { easy, repeat, repeatCards, markEasy, markRepeat } = usePracticeSession();
-  const { colors, recordCardStudied } = useSettings();
+  const { colors } = useSettings();
+  const { recordCardStudied } = useGoal();
   const { cards = [], name = "" } = route.params || {};
   const currentCard = cards[progress] || {};
 

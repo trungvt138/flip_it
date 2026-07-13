@@ -9,6 +9,7 @@ import Library from "../screens/Library";
 import SessionComplete from "../screens/SessionComplete";
 import { LearningBoxesProvider } from '../hooks/useLearningBoxes';
 import { AppSettingsProvider } from '../hooks/useSettings';
+import { GoalProvider } from '../hooks/useGoal';
 import EditSet from "../screens/EditSet";
 import User from "../screens/User";
 
@@ -37,6 +38,7 @@ function MainTabs() {
 export default function AppNavigator() {
   return (
     <AppSettingsProvider>
+    <GoalProvider>
     <LearningBoxesProvider>
     <NavigationContainer>
       <Stack.Navigator
@@ -50,6 +52,7 @@ export default function AppNavigator() {
       </Stack.Navigator>
     </NavigationContainer>
     </LearningBoxesProvider>
+    </GoalProvider>
     </AppSettingsProvider>
   );
 }

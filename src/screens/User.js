@@ -4,13 +4,15 @@ import { Ionicons } from "@expo/vector-icons";
 import Navbar from "../components/Navbar";
 import HorizontalRuler from "../components/HorizontalRuler";
 import { useSettings } from "../hooks/useSettings";
+import { useGoal } from "../hooks/useGoal";
 
 const GOAL_STEP = 5;
 const MIN_GOAL = 5;
 const MAX_GOAL = 180;
 
 export default function User() {
-  const { theme, toggleTheme, language, setLanguage, t, colors, dailyGoalMinutes, setDailyGoalMinutes } = useSettings();
+  const { theme, toggleTheme, language, setLanguage, t, colors } = useSettings();
+  const { dailyGoalMinutes, setDailyGoalMinutes } = useGoal();
 
   function adjustGoal(delta) {
     setDailyGoalMinutes((prev) => Math.min(MAX_GOAL, Math.max(MIN_GOAL, prev + delta)));

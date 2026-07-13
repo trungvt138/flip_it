@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 export function useText(initialText = "") {
     const [text, setText] = useState(initialText);
 
-    function handleChange(newText) {
+    const handleChange = useCallback((newText) => {
         setText(newText);
-    }
+    }, []);
 
     return { text, handleChange };
 }

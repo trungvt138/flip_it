@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, useMemo, useCallback, createContext, useContext } from 'react';
 
 const LearningBoxesContext = createContext();
 
@@ -36,28 +36,33 @@ export function LearningBoxesProvider({ children }) {
         },
     ]);
 
-    function addLearningBox(box) {
+    const addLearningBox = useCallback((box) => {
         setLearningBoxes(prev => [...prev, box]);
-    }
+    }, []);
 
-    function deleteLearningBox(index) {
+    const deleteLearningBox = useCallback((index) => {
         setLearningBoxes(prev => prev.filter((_, i) => i !== index));
-    }
+    }, []);
 
-    function getLastLearningBox() {
+    const getLastLearningBox = useCallback(() => {
         return learningBoxes[learningBoxes.length - 1] ?? null;
-    }
+    }, [learningBoxes]);
 
-    function updateLearningBox(index, box) {
+    const updateLearningBox = useCallback((index, box) => {
         setLearningBoxes(prev => prev.map((b, i) => i === index ? box : b));
-    }
+    }, []);
 
-    function markOpened(index) {
+    const markOpened = useCallback((index) => {
         setLearningBoxes(prev => prev.map((b, i) => i === index ? { ...b, lastOpenedAt: Date.now() } : b));
-    }
+    }, []);
+
+    const value = useMemo(
+        () => ({ learningBoxes, addLearningBox, deleteLearningBox, getLastLearningBox, updateLearningBox, markOpened }),
+        [learningBoxes, addLearningBox, deleteLearningBox, getLastLearningBox, updateLearningBox, markOpened]
+    );
 
     return (
-        <LearningBoxesContext.Provider value={{ learningBoxes, addLearningBox, deleteLearningBox, getLastLearningBox, updateLearningBox, markOpened }}>
+        <LearningBoxesContext.Provider value={value}>
             {children}
         </LearningBoxesContext.Provider>
     );

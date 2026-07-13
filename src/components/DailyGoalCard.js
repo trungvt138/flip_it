@@ -2,11 +2,13 @@ import { useEffect, useRef } from "react";
 import { StyleSheet, Text, View, Animated, Easing } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useSettings } from "../hooks/useSettings";
+import { useGoal } from "../hooks/useGoal";
 
 const MILESTONES = [0.25, 0.5, 0.75, 1];
 
 export default function DailyGoalCard() {
-  const { t, colors, dailyGoalMinutes, minutesStudiedToday, goalProgress } = useSettings();
+  const { t, colors } = useSettings();
+  const { dailyGoalMinutes, minutesStudiedToday, goalProgress } = useGoal();
   const reached = goalProgress >= 1;
 
   const fillAnim = useRef(new Animated.Value(0)).current;
