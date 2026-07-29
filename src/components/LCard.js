@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, Animated } from "react
 import { useLCardFlip } from "../hooks/useLCardFlip";
 import { useSettings } from "../hooks/useSettings";
 
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+
 const LCard = ({front, back, onEasy, onRepeat}) => {
     const { flipped, flip, flipToFrontStyle, flipToBackStyle, resetFlip } = useLCardFlip();
     const { colors, t } = useSettings();
@@ -13,20 +15,20 @@ const LCard = ({front, back, onEasy, onRepeat}) => {
 
     return (
         <View>
-            <Animated.View style={[styles.card, { backgroundColor: colors.card }, flipToFrontStyle]}>
+            <AnimatedTouchable activeOpacity={1} onPress={flip} style={[styles.card, { backgroundColor: colors.card }, flipToFrontStyle]}>
                 <View></View>
                 <Text style={[styles.text, { color: colors.text }]}>{front}</Text>
-                <TouchableOpacity style={styles.icon} onPress={flip}>
+                <View style={styles.icon}>
                     <Image source={require('../../assets/front-flip.png')}></Image>
-                </TouchableOpacity>
-            </Animated.View>
-            <Animated.View style={[styles.card, styles.back, flipToBackStyle]}>
+                </View>
+            </AnimatedTouchable>
+            <AnimatedTouchable activeOpacity={1} onPress={flip} style={[styles.card, styles.back, flipToBackStyle]}>
                 <View></View>
                 <Text style={[styles.text, { color: '#fff' }]}>{back}</Text>
-                <TouchableOpacity style={styles.icon} onPress={flip}>
+                <View style={styles.icon}>
                     <Image source={require('../../assets/back-flip.png')}></Image>
-                </TouchableOpacity>
-            </Animated.View>
+                </View>
+            </AnimatedTouchable>
 
             {flipped && (
                 <View style={styles.buttonContainer}>
